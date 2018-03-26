@@ -1,0 +1,36 @@
+{
+    "name": "filesharer_bot",
+    "version": "0.0.3",
+    "description": "",
+    "main": "main.js",
+    "scripts": {
+        "start": "pm2 start ./main.js --name filesharer_bot",
+        "dev": "nodemon ./main.js --ignore session_db.json",
+        "uptest": "node ./app/utills/mangaUpdatesListener.js"
+    },
+    "author": "baamz",
+    "license": "ISC",
+    "dependencies": {
+        "config": "^1.29.4",
+        "dotenv": "^5.0.0",
+        "escape-html": "^1.0.3",
+        "ip": "^1.1.5",
+        "lodash": "^4.17.5",
+        "moment": "^2.20.1",
+        "mongoose": "^5.0.3",
+        "mongoose-paginate": "^5.0.3",
+        "pm2": "^2.10.1",
+        "rand-token": "^0.4.0",
+        "shortid": "^2.2.8",
+        "telegraf": "^3.18.0",
+        "telegraf-session-local": "0.0.4",
+        "validator": "^9.4.1"
+    },
+    "devDependencies": {
+        "babel-eslint": "^8.2.1",
+        "eslint": "^4.17.0",
+        "eslint-config-airbnb-base": "^12.1.0",
+        "eslint-plugin-import": "^2.8.0",
+        "nodemon": "^1.17.1"
+    }
+}
