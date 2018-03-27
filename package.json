@@ -23,6 +23,7 @@
         "rand-token": "^0.4.0",
         "shortid": "^2.2.8",
         "telegraf": "^3.18.0",
+        "telegraf-i18n": "^6.0.4",
         "telegraf-session-local": "0.0.4",
         "validator": "^9.4.1"
     },

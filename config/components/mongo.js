@@ -1,9 +1,7 @@
 const mongoose = require("mongoose");
-const autoIncrement = require("mongoose-auto-increment");
 
 module.exports = (dbURI) => {
     mongoose.connect(dbURI);
-    autoIncrement.initialize(mongoose.connection);
 
     const gracefulShutdown = (msg, callback) => {
         mongoose.connection.close(() => {

@@ -2,23 +2,10 @@ const Extra = require("telegraf/extra");
 const compileMessage = require("../helpers/compileMessage");
 const UserModel = require("../models/user");
 
-async function startCommand(ctx) {
-    const message = `<b>FileSharer Bot - </b> это бот, который позволит вам делиться
-    файлами с другими пользователями.
-    
-    Используйте эти команды, чтобы управлять ботом:
-    
-    <b>Основные</b>
-    /add - добавить файл
-    /files - мои файлы
-    
-    <b>Помощь</b>
-    /help - справка
-    /feedback - связаться с нами
-    
-    /rate - оценить бот`;
-
-    return ctx.reply(compileMessage(message), Extra.HTML());
+function startCommand(ctx) {
+    const startMessage = ctx.i18n.t("start");
+    const commands = ctx.i18n.t("commands");
+    return ctx.reply(`${startMessage}\n\n${commands}`, Extra.HTML());
 }
 
 async function otherwise(ctx, data) {

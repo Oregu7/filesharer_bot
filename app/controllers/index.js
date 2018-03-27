@@ -31,3 +31,8 @@
     4) Статистика => скачиваем в виде .xls, .csv, .json, .xml (Кто и когда скачивал)
     5) Удалить файл
 */
+
+const startController = require("./startController");
+module.exports = {
+    startController,
+};
