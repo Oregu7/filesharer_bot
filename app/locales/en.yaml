@@ -1,2 +1,2 @@
-start: <b>FileSharer Bot - </b> this is a bot that will allow you to share\nfiles with other users.
+start_command: <b>FileSharer Bot - </b> this is a bot that will allow you to share\nfiles with other users.
 commands: <b>Basic</b>\n/add - add file\n/files - my files\n\n<b>Help</b>\n/help - support\n/feedback - contact us\n\n/rate - evaluate bot

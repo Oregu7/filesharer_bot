@@ -33,6 +33,8 @@
 */
 
 const startController = require("./startController");
+const addController = require("./addController");
 module.exports = {
     startController,
+    addController,
 };

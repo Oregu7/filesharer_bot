@@ -1,9 +1,9 @@
 const Extra = require("telegraf/extra");
-const compileMessage = require("../helpers/compileMessage");
-const UserModel = require("../models/user");
+const { compileMessage } = require("../helpers");
+const { UserModel } = require("../models");
 
 function startCommand(ctx) {
-    const startMessage = ctx.i18n.t("start");
+    const startMessage = ctx.i18n.t("start_command");
     const commands = ctx.i18n.t("commands");
     return ctx.reply(`${startMessage}\n\n${commands}`, Extra.HTML());
 }

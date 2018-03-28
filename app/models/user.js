@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { getUserInfo } = require("../util");
 
 const UserSchema = mongoose.Schema({
     userId: { type: Number, required: true, unique: true },
@@ -11,26 +12,11 @@ const UserSchema = mongoose.Schema({
 });
 
 UserSchema.statics.createByContext = async function(ctx) {
-    const {
-        id: userId,
-        is_bot: isBot,
-        first_name: firstName,
-        last_name: lastName,
-        username,
-        language_code: languageCode,
-    } = ctx.from;
-
-    const user = await this.findOne({ userId });
+    const userData = getUserInfo(ctx);
+    const user = await this.findOne({ userId: userData.userId });
     if (user) return user;
 
-    return this.create({
-        userId,
-        isBot,
-        firstName,
-        lastName,
-        username,
-        languageCode,
-    });
+    return this.create(userData);
 };
 
 module.exports = mongoose.model("User", UserSchema);
