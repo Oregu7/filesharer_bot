@@ -34,7 +34,11 @@
 
 const startController = require("./startController");
 const addController = require("./addController");
+const addFileController = require("./addFileController");
+const callbackController = require("./callbackController");
 module.exports = {
     startController,
     addController,
+    addFileController,
+    callbackController,
 };

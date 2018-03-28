@@ -21,8 +21,14 @@ bot.start(controllers.startController);
 bot.command("add", controllers.addController);
 // patterns
 // events
-bot.on("photo", (ctx) => console.log(ctx.message));
-bot.on("document", (ctx) => console.log(ctx.message));
+bot.on("photo", controllers.addFileController("photo"));
+bot.on("video", controllers.addFileController("video"));
+bot.on("audio", controllers.addFileController("audio"));
+bot.on("voice", controllers.addFileController("voice"));
+bot.on("document", controllers.addFileController("document"));
+
+bot.on("callback_query", controllers.callbackController);
+
 bot.catch((err) => {
     console.error(err);
 });
