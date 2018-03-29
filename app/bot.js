@@ -19,6 +19,7 @@ const i18n = new I18n({
 const stage = new Stage();
 // Scene registration
 stage.register(scenes.passwordScene);
+stage.register(scenes.sendFileToUserScene);
 // middlewares
 bot.use(localSession.middleware());
 bot.use(i18n.middleware());

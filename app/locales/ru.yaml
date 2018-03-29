@@ -2,7 +2,19 @@ start_command: <b>FileSharer Bot - </b> это бот, который позво
 commands: <b>Основные</b>\n/add - добавить файл\n/files - мои файлы\n\n<b>Помощь</b>\n/help - справка\n/feedback - связаться с нами\n\n/rate - оценить бот
 add_command: Чтобы добавить новый <b>файл</b>, просто <b>отправьте</b> его мне!\n\nЯ поддерживаю следующие <b>форматы</b> данных:\n
 data_formats: \u{1F5BC}<code>изображения</code>\n\u{1F4F9}<code>видеозаписи</code>\n\u{1F3B5}<code>аудио-файлы</code>\n\u{1F4E6}<code>документы</code>\n\u{1F3A4}<code>голосовые сообщения</code>
-file_info: <b>Название:</b> ${name}\n<b>Тип:</b> ${type}\n<b>Описание:</b> ${description}\n\nСсылка:https://t.me/filesharer_bot?start=${publicId}
+file: 
+  caption: ссылка:https://t.me/filesharer_bot?start=${publicId}
+  deletedCbMessage: Похоже файл уже удален :(
+  settingsButton: \u{2699}Настройки
+  statisticsButton: \u{1F4CA}Статистика
+  statisticsInfoButton: \u{1F4C8}Показатели
+  replyButton: \u{1F4E2}Поделиться
+  removeButton: \u{274C}Удалить
+  deleteButton: \u{1F5D1}Да, удалить
+  passwordButton: \u{1F510}Пароль
+  rateButton: \u{2B50}Рейтинг
+  backButton: \u{1F519}Назад
+  menuButton: \u{1F3E0}К главной
 password: 
   startMessage: Введите новый пароль\n\u{1F511}пароль:${"*".repeat(password.length)}
   deleteMessage: Текущий пароль успешно удален!
@@ -16,6 +28,3 @@ rate:
   infoButton: \u{1F44D}Лайки / Дизлайки\u{1F44E}
   onButton: Вкл.
   offButton: Откл.
-base:
-  backButton: \u{1F519}Назад
-  menuButton: \u{1F3E0}К главной

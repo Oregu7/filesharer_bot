@@ -44,7 +44,7 @@ function isExistFileMiddleware(callback, select = "password fileId type publicId
         const id = ctx.state.payload;
         const file = await getFileById(id).select(select);
         if (!file) {
-            ctx.answerCbQuery("Похоже файл уже удален :(", true);
+            ctx.answerCbQuery(ctx.i18n.t("file.deletedCbMessage"), true);
             return ctx.deleteMessage();
         }
 
@@ -54,38 +54,38 @@ function isExistFileMiddleware(callback, select = "password fileId type publicId
 
 function createMainKeyboard(ctx, fileId) {
     return Markup.inlineKeyboard([
-        Markup.callbackButton("\u{2699}Настройки", `${SETTINGS_ACTION}:${fileId}`),
-        Markup.callbackButton("\u{1F4CA}Статистика", `${STATISTICS_ACTION}:${fileId}`),
-        Markup.switchToChatButton("\u{1F4E2}Поделиться", `file:${fileId}`),
-        Markup.callbackButton("\u{274C}Удалить", `${REMOVE_ACTION}:${fileId}`),
+        Markup.callbackButton(ctx.i18n.t("file.settingsButton"), `${SETTINGS_ACTION}:${fileId}`),
+        Markup.callbackButton(ctx.i18n.t("file.statisticsButton"), `${STATISTICS_ACTION}:${fileId}`),
+        Markup.switchToChatButton(ctx.i18n.t("file.replyButton"), `file:${fileId}`),
+        Markup.callbackButton(ctx.i18n.t("file.removeButton"), `${REMOVE_ACTION}:${fileId}`),
     ], { columns: 2 });
 }
 
 function createRemoveKeyboard(ctx, fileId) {
     return Markup.inlineKeyboard([
-        Markup.callbackButton("\u{1F519}Отмена", `${BACK_ACTION}:${fileId}`),
-        Markup.callbackButton("\u{1F5D1}Удалить", `${DELETE_ACTION}:${fileId}`),
+        Markup.callbackButton(ctx.i18n.t("file.backButton"), `${BACK_ACTION}:${fileId}`),
+        Markup.callbackButton(ctx.i18n.t("file.deleteButton"), `${DELETE_ACTION}:${fileId}`),
     ], { columns: 2 });
 }
 
 function createSettingsKeyboard(ctx, fileId) {
     return Markup.inlineKeyboard([
-        Markup.callbackButton("\u{1F510}Пароль", `${PASSWORD_ACTION}:${fileId}`),
-        Markup.callbackButton("\u{2B50}Рейтинг", `${RATE_ACTION}:${fileId}`),
-        Markup.callbackButton("\u{1F519}Назад", `${BACK_ACTION}:${fileId}`),
+        Markup.callbackButton(ctx.i18n.t("file.passwordButton"), `${PASSWORD_ACTION}:${fileId}`),
+        Markup.callbackButton(ctx.i18n.t("file.rateButton"), `${RATE_ACTION}:${fileId}`),
+        Markup.callbackButton(ctx.i18n.t("file.backButton"), `${BACK_ACTION}:${fileId}`),
     ], { columns: 2 });
 }
 
 function createStaticsKeyboard(ctx, fileId) {
     return Markup.inlineKeyboard([
-        [Markup.callbackButton("\u{1F4C8}Показатели", `${STATISTICS_FILE_ACTION}:${fileId}`)],
+        [Markup.callbackButton(ctx.i18n.t("file.statisticsInfoButton"), `${STATISTICS_FILE_ACTION}:${fileId}`)],
         [
             Markup.callbackButton(".csv", `${STATISTICS_FILE_ACTION}:${fileId}`),
             Markup.callbackButton(".xls", `${STATISTICS_FILE_ACTION}:${fileId}`),
             Markup.callbackButton(".xml", `${STATISTICS_FILE_ACTION}:${fileId}`),
             Markup.callbackButton(".json", `${STATISTICS_FILE_ACTION}:${fileId}`),
         ],
-        [Markup.callbackButton("\u{1F519}Назад", `${BACK_ACTION}:${fileId}`)],
+        [Markup.callbackButton(ctx.i18n.t("file.backButton"), `${BACK_ACTION}:${fileId}`)],
     ]);
 }
 
@@ -112,11 +112,9 @@ function createMessage(ctx, file) {
     });
 }
 
-function sendFile(ctx, file, keyboardType = "main") {
+function sendFileBase(ctx, file, keyboard) {
     const { type, fileId, publicId } = file;
-    const keyboard = createKeyboard(ctx, file._id, keyboardType);
-    const link = `https://t.me/filesharer_bot?start=${publicId}`;
-    const caption = `ссылка: ${link}`;
+    const caption = ctx.i18n.t("file.caption", { publicId });
     const extra = Extra.load({ caption }).markup(keyboard);
 
     switch (type) {
@@ -133,6 +131,28 @@ function sendFile(ctx, file, keyboardType = "main") {
     }
 }
 
+function sendFile(ctx, file, keyboardType = "main") {
+    const keyboard = createKeyboard(ctx, file._id, keyboardType);
+    return sendFileBase(ctx, file, keyboard);
+}
+
+function sendFileToUser(ctx, file) {
+    const keyboard = createUserKeyboard(ctx, file);
+    return sendFileBase(ctx, file, keyboard);
+}
+
+function createUserKeyboard(ctx, file) {
+    const keyboard = [
+        Markup.switchToChatButton(ctx.i18n.t("file.replyButton"), `file:${file._id}`),
+    ];
+    const rateKeyboard = [
+        Markup.callbackButton("\u{1F44D}", `like:${file._id}`),
+        Markup.callbackButton("\u{1F44E}", `dislike:${file._id}`),
+    ];
+    if (file.options.rate) keyboard.unshift(...rateKeyboard);
+    return Markup.inlineKeyboard(keyboard, { columns: 2 });
+}
+
 module.exports = {
     createFile,
     deleteFile,
@@ -142,6 +162,9 @@ module.exports = {
     createMainKeyboard,
     createSettingsKeyboard,
     createRemoveKeyboard,
+    createUserKeyboard,
     createMessage,
     sendFile,
+    sendFileToUser,
+    sendFileBase,
 };

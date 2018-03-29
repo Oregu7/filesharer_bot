@@ -1,5 +1,5 @@
 const Extra = require("telegraf/extra");
-const { compileMessage } = require("../helpers");
+const { SEND_FILE_TO_USER_SCENE } = require("config").get("constants");
 const { UserModel } = require("../models");
 
 function startCommand(ctx) {
@@ -8,12 +8,9 @@ function startCommand(ctx) {
     return ctx.reply(`${startMessage}\n\n${commands}`, Extra.HTML());
 }
 
-async function otherwise(ctx, data) {
-    //let manga = await MangaModel.getManga({ mangaId: Number(data) });
-    //if (manga) return sendManga(ctx, manga);
-
-    //ищем файл
-    return ctx.reply("O_o");
+async function otherwise(ctx, publicId) {
+    ctx.state.payload = publicId;
+    return ctx.scene.enter(SEND_FILE_TO_USER_SCENE);
 }
 
 module.exports = async(ctx) => {
@@ -26,11 +23,7 @@ module.exports = async(ctx) => {
         ctx.session.authToken = user._id;
     }
 
-    switch (route) {
-        case "/":
-            startCommand(ctx);
-            break;
-        default:
-            otherwise(ctx, route);
-    }
+    if (route == "/") return startCommand(ctx);
+
+    return otherwise(ctx, route);
 };

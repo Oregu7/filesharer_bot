@@ -27,8 +27,8 @@ function createRateKeyboard(ctx, file) {
             ),
         ],
         [
-            Markup.callbackButton(ctx.i18n.t("base.backButton"), `${SETTINGS_ACTION}:${file._id}`),
-            Markup.callbackButton(ctx.i18n.t("base.menuButton"), `${BACK_ACTION}:${file._id}`),
+            Markup.callbackButton(ctx.i18n.t("file.backButton"), `${SETTINGS_ACTION}:${file._id}`),
+            Markup.callbackButton(ctx.i18n.t("file.menuButton"), `${BACK_ACTION}:${file._id}`),
         ],
     ]);
 }
