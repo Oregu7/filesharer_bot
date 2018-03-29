@@ -35,6 +35,23 @@ function deleteFile(id) {
     return FileModel.remove({ _id: id });
 }
 
+function getFileById(id) {
+    return FileModel.findById(id);
+}
+
+function isExistFileMiddleware(callback, select = "password fileId type publicId options") {
+    return async(ctx) => {
+        const id = ctx.state.payload;
+        const file = await getFileById(id).select(select);
+        if (!file) {
+            ctx.answerCbQuery("Похоже файл уже удален :(", true);
+            return ctx.deleteMessage();
+        }
+
+        return callback(ctx, file);
+    };
+}
+
 function createMainKeyboard(ctx, fileId) {
     return Markup.inlineKeyboard([
         Markup.callbackButton("\u{2699}Настройки", `${SETTINGS_ACTION}:${fileId}`),
@@ -119,6 +136,8 @@ function sendFile(ctx, file, keyboardType = "main") {
 module.exports = {
     createFile,
     deleteFile,
+    getFileById,
+    isExistFileMiddleware,
     createKeyboard,
     createMainKeyboard,
     createSettingsKeyboard,
