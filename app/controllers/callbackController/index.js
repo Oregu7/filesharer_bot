@@ -10,12 +10,15 @@ const {
     RATE_ON_ACTION,
     RATE_OFF_ACTION,
     PASSWORD_ACTION,
+    LIKE_ACTION,
+    DISLIKE_ACTION,
 } = require("config").get("constants");
 const { enter } = require("telegraf/stage");
 // actions
 const switchToMenuAction = require("./switchToMenuAction");
 const deleteAction = require("./deleteAction");
 const rateAction = require("./rateController");
+const rateFileAction = require("./rateFileController");
 
 // router
 const callback = new Router(({ callbackQuery }) => {
@@ -38,6 +41,8 @@ callback.on(RATE_ACTION, rateAction.base);
 callback.on(RATE_INFO_ACTION, rateAction.info);
 callback.on(RATE_ON_ACTION, rateAction.on);
 callback.on(RATE_OFF_ACTION, rateAction.off);
+callback.on(LIKE_ACTION, rateFileAction("likes"));
+callback.on(DISLIKE_ACTION, rateFileAction("dislikes"));
 callback.on(DELETE_ACTION, deleteAction);
 
 module.exports = callback;

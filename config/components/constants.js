@@ -11,6 +11,8 @@ const RATE_OFF_ACTION = "rate_off";
 const REPLY_ACTION = "reply";
 const BACK_ACTION = "back";
 const STATISTICS_FILE_ACTION = "statistics_file";
+const LIKE_ACTION = "like";
+const DISLIKE_ACTION = "dislike";
 const SEND_FILE_TO_USER_SCENE = "send_file_to_user";
 
 module.exports = {
@@ -27,5 +29,7 @@ module.exports = {
     RATE_OFF_ACTION,
     REPLY_ACTION,
     BACK_ACTION,
+    LIKE_ACTION,
+    DISLIKE_ACTION,
     SEND_FILE_TO_USER_SCENE,
 };

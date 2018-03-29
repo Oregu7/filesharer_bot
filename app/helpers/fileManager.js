@@ -3,7 +3,6 @@ const Markup = require("telegraf/markup");
 const Extra = require("telegraf/extra");
 const randomize = require("randomatic");
 const { FileModel } = require("../models");
-const { getUserInfo } = require("../util");
 const {
     SETTINGS_ACTION,
     STATISTICS_ACTION,
@@ -12,6 +11,8 @@ const {
     DELETE_ACTION,
     PASSWORD_ACTION,
     RATE_ACTION,
+    LIKE_ACTION,
+    DISLIKE_ACTION,
     BACK_ACTION,
 } = require("config").get("constants");
 
@@ -21,8 +22,8 @@ function createFile(ctx, type) {
         file_id: fileId,
         file_name: fileName = `${type.toUpperCase()} ${randomize("0", 5)}`,
     }] = _.isArray(fileData) ? fileData.slice(-1) : [fileData];
+    const author = ctx.session.authToken;
 
-    const author = getUserInfo(ctx);
     return FileModel.create({
         fileId,
         type,
@@ -137,6 +138,8 @@ function sendFile(ctx, file, keyboardType = "main") {
 }
 
 function sendFileToUser(ctx, file) {
+    // register user
+    FileModel.registerView(ctx, file);
     const keyboard = createUserKeyboard(ctx, file);
     return sendFileBase(ctx, file, keyboard);
 }
@@ -146,8 +149,8 @@ function createUserKeyboard(ctx, file) {
         Markup.switchToChatButton(ctx.i18n.t("file.replyButton"), `file:${file._id}`),
     ];
     const rateKeyboard = [
-        Markup.callbackButton("\u{1F44D}", `like:${file._id}`),
-        Markup.callbackButton("\u{1F44E}", `dislike:${file._id}`),
+        Markup.callbackButton(`\u{1F44D}${file.likesCount}`, `${LIKE_ACTION}:${file._id}`),
+        Markup.callbackButton(`\u{1F44E}${file.dislikesCount}`, `${DISLIKE_ACTION}:${file._id}`),
     ];
     if (file.options.rate) keyboard.unshift(...rateKeyboard);
     return Markup.inlineKeyboard(keyboard, { columns: 2 });
