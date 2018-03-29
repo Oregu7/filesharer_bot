@@ -6,15 +6,12 @@ const { FileModel } = require("../models");
 const { getUserInfo } = require("../util");
 const {
     SETTINGS_ACTION,
-    SHARE_ACTION,
     STATISTICS_ACTION,
     STATISTICS_FILE_ACTION,
     REMOVE_ACTION,
     DELETE_ACTION,
     PASSWORD_ACTION,
     RATE_ACTION,
-    LINK_ACTION,
-    REPLY_ACTION,
     BACK_ACTION,
 } = require("config").get("constants");
 
@@ -42,7 +39,7 @@ function createMainKeyboard(ctx, fileId) {
     return Markup.inlineKeyboard([
         Markup.callbackButton("\u{2699}Настройки", `${SETTINGS_ACTION}:${fileId}`),
         Markup.callbackButton("\u{1F4CA}Статистика", `${STATISTICS_ACTION}:${fileId}`),
-        Markup.callbackButton("\u{1F4E2}Поделиться", `${SHARE_ACTION}:${fileId}`),
+        Markup.switchToChatButton("\u{1F4E2}Поделиться", `file:${fileId}`),
         Markup.callbackButton("\u{274C}Удалить", `${REMOVE_ACTION}:${fileId}`),
     ], { columns: 2 });
 }
@@ -58,14 +55,6 @@ function createSettingsKeyboard(ctx, fileId) {
     return Markup.inlineKeyboard([
         Markup.callbackButton("\u{1F510}Пароль", `${PASSWORD_ACTION}:${fileId}`),
         Markup.callbackButton("\u{2B50}Рейтинг", `${RATE_ACTION}:${fileId}`),
-        Markup.callbackButton("\u{1F519}Назад", `${BACK_ACTION}:${fileId}`),
-    ], { columns: 2 });
-}
-
-function createShareKeyboard(ctx, fileId) {
-    return Markup.inlineKeyboard([
-        Markup.callbackButton("\u{1F517}Ссылка", `${LINK_ACTION}:${fileId}`),
-        Markup.callbackButton("\u{21A9}Переслать", `${REPLY_ACTION}:${fileId}`),
         Markup.callbackButton("\u{1F519}Назад", `${BACK_ACTION}:${fileId}`),
     ], { columns: 2 });
 }
@@ -91,8 +80,6 @@ function createKeyboard(ctx, fileId, type = "main") {
             return createRemoveKeyboard(ctx, fileId);
         case SETTINGS_ACTION:
             return createSettingsKeyboard(ctx, fileId);
-        case SHARE_ACTION:
-            return createShareKeyboard(ctx, fileId);
         case STATISTICS_ACTION:
             return createStaticsKeyboard(ctx, fileId);
     }
@@ -108,21 +95,24 @@ function createMessage(ctx, file) {
     });
 }
 
-function sendFile(ctx, file) {
-    const { type, fileId } = file;
-    const keyboard = createMainKeyboard(ctx, file._id).extra();
+function sendFile(ctx, file, keyboardType = "main") {
+    const { type, fileId, publicId } = file;
+    const keyboard = createKeyboard(ctx, file._id, keyboardType);
+    const link = `https://t.me/filesharer_bot?start=${publicId}`;
+    const caption = `ссылка: ${link}`;
+    const extra = Extra.load({ caption }).markup(keyboard);
 
     switch (type) {
         case "photo":
-            return ctx.replyWithPhoto(fileId, keyboard);
+            return ctx.replyWithPhoto(fileId, extra);
         case "audio":
-            return ctx.replyWithAudio(fileId, keyboard);
+            return ctx.replyWithAudio(fileId, extra);
         case "document":
-            return ctx.replyWithDocument(fileId, keyboard);
+            return ctx.replyWithDocument(fileId, extra);
         case "voice":
-            return ctx.replyWithVoice(fileId, keyboard);
+            return ctx.replyWithVoice(fileId, extra);
         case "video":
-            return ctx.replyWithVideo(fileId, keyboard);
+            return ctx.replyWithVideo(fileId, extra);
     }
 }
 

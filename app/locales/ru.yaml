@@ -3,3 +3,4 @@ commands: <b>Основные</b>\n/add - добавить файл\n/files - м
 add_command: Чтобы добавить новый <b>файл</b>, просто <b>отправьте</b> его мне!\n\nЯ поддерживаю следующие <b>форматы</b> данных:\n
 data_formats: \u{1F5BC}<code>изображения</code>\n\u{1F4F9}<code>видеозаписи</code>\n\u{1F3B5}<code>аудио-файлы</code>\n\u{1F4E6}<code>документы</code>\n\u{1F3A4}<code>голосовые сообщения</code>
 file_info: <b>Название:</b> ${name}\n<b>Тип:</b> ${type}\n<b>Описание:</b> ${description}\n\nСсылка:https://t.me/filesharer_bot?start=${publicId}
+password_start: Введите новый пароль\n\u{1F511}пароль:${"*".repeat(password.length)}

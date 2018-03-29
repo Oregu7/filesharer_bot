@@ -1,16 +1,18 @@
 const Router = require("telegraf/router");
 const {
     SETTINGS_ACTION,
-    OPTIONS_ACTION,
-    SHARE_ACTION,
     STATISTICS_ACTION,
     REMOVE_ACTION,
     DELETE_ACTION,
     BACK_ACTION,
+    PASSWORD_ACTION,
 } = require("config").get("constants");
+const { enter } = require("telegraf/stage");
+// actions
 const switchToMenuAction = require("./switchToMenuAction");
 const deleteAction = require("./deleteAction");
 
+// router
 const callback = new Router(({ callbackQuery }) => {
     if (!callbackQuery.data) { return; }
     const parts = callbackQuery.data.split(":");
@@ -22,10 +24,11 @@ const callback = new Router(({ callbackQuery }) => {
 });
 
 callback.on(REMOVE_ACTION, switchToMenuAction(REMOVE_ACTION));
-callback.on(DELETE_ACTION, deleteAction);
 callback.on(SETTINGS_ACTION, switchToMenuAction(SETTINGS_ACTION));
-callback.on(SHARE_ACTION, switchToMenuAction(SHARE_ACTION));
 callback.on(STATISTICS_ACTION, switchToMenuAction(STATISTICS_ACTION));
 callback.on(BACK_ACTION, switchToMenuAction("main"));
+
+callback.on(PASSWORD_ACTION, enter(PASSWORD_ACTION));
+callback.on(DELETE_ACTION, deleteAction);
 
 module.exports = callback;
