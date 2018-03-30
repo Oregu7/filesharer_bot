@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+const { isMongoId } = require("validator");
+const mongoosePaginate = require("mongoose-paginate");
 const shortid = require("shortid");
 const { ObjectId } = mongoose.Schema.Types;
 
@@ -33,6 +35,8 @@ const FileSchema = mongoose.Schema({
     dislikes: [Number],
 });
 
+FileSchema.plugin(mongoosePaginate);
+
 FileSchema.statics.getFileToUser = async function(query = {}) {
     const [file = null] = await this.aggregate([
         { "$match": query },
@@ -65,6 +69,23 @@ FileSchema.statics.rateFile = function(ctx, assessment = "likes") {
             [pullField]: Number(userId),
         },
     });
+};
+
+FileSchema.statics.searchFiles = function({ author, type = "article" }, page = 1, limit = 25) {
+    const req = { author };
+    if (type !== "article") req["type"] = type;
+
+    return this.paginate(req, {
+        select: "type fileId publicId name created_at",
+        sort: "-created_at",
+        limit,
+        page,
+    });
+};
+
+FileSchema.statics.searchFileById = async function(id) {
+    if (!isMongoId(id)) return null;
+    return await this.findById(id).select("type fileId publicId name created_at");
 };
 
 module.exports = mongoose.model("File", FileSchema);

@@ -36,6 +36,7 @@ bot.on("voice", controllers.addFileController("voice"));
 bot.on("document", controllers.addFileController("document"));
 
 bot.on("callback_query", controllers.callbackController);
+bot.on("inline_query", controllers.inlineQueryController);
 
 bot.catch((err) => {
     console.error(err);

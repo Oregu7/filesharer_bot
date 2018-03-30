@@ -1,3 +1,11 @@
 {
-    "admins": [322349523, 468245981]
+    "admins": [322349523, 468245981],
+    "allowedTypes": ["audio", "photo", "document", "video", "voice", "file"],
+    "typesImages": {
+        "video": "https://cdn2.iconfinder.com/data/icons/circle-icons-1/64/video-256.png",
+        "photo": "https://cdn2.iconfinder.com/data/icons/circle-icons-1/64/polaroid-256.png",
+        "document": "https://cdn2.iconfinder.com/data/icons/circle-icons-1/64/document-256.png",
+        "audio": "https://cdn2.iconfinder.com/data/icons/circle-icons-1/64/music-256.png",
+        "voice": "https://cdn2.iconfinder.com/data/icons/circle-icons-1/64/mic-256.png"
+    }
 }
