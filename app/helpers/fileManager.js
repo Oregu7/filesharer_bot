@@ -2,7 +2,7 @@ const _ = require("lodash");
 const Markup = require("telegraf/markup");
 const Extra = require("telegraf/extra");
 const randomize = require("randomatic");
-const { FileModel } = require("../models");
+const { FileModel, VisitorModel } = require("../models");
 const {
     SETTINGS_ACTION,
     STATISTICS_ACTION,
@@ -143,7 +143,7 @@ function sendFile(ctx, file, keyboardType = "main") {
 
 function sendFileToUser(ctx, file) {
     // register user
-    FileModel.registerView(ctx, file);
+    VisitorModel.registerVistor(ctx, file);
     const keyboard = createUserKeyboard(ctx, file);
     return sendFileBase(ctx, file, keyboard);
 }

@@ -1,55 +1,72 @@
+const _ = require("lodash");
 const csv = require("fast-csv");
+const xlsx = require("node-xlsx");
+const xml2js = require("xml2js");
 const fs = require("fs");
 const tmp = require("tmp");
 
-const myCars = [{
-    "car": "Audi",
-    "price": 40000,
-    "color": "blue",
-}, {
-    "car": "BMW",
-    "price": 35000,
-    "color": "black",
-}, {
-    "car": "Porsche",
-    "price": 60000,
-    "color": "green",
-}];
+const { VisitorModel } = require("../../models");
+
+function getVisitorsMiddleware(callback) {
+    return async(ctx) => {
+        const users = await VisitorModel.getVisitors(ctx);
+        if (users.length) return callback(ctx, users);
+
+        return ctx.answerCbQuery("Никто не просматривал данный файл!");
+    }
+}
 
 function tmpFile(prefix, postfix, callback) {
     tmp.file({ mode: 0644, prefix, postfix }, function _tempFileCreated(err, path, fd, cleanup) {
         if (err) throw err;
-        console.log('File: ', path);
         callback(path, fd, cleanup);
     });
 }
 
-exports.csv = (ctx) => {
+exports.csv = getVisitorsMiddleware((ctx, users) => {
     tmpFile("users-", ".csv", (path, fd, cleanup) => {
         csv
-            .writeToPath(path, myCars, { headers: true })
+            .writeToPath(path, users, { headers: true })
             .on("finish", async(error) => {
-                console.log("done!");
                 await ctx.replyWithDocument({ source: path });
                 cleanup();
             });
     });
-};
+});
 
-exports.json = (ctx) => {
+exports.json = getVisitorsMiddleware((ctx, users) => {
     tmpFile("users-", ".json", (path, fd, cleanup) => {
-        fs.writeFile(path, JSON.stringify(myCars), async(err) => {
+        fs.writeFile(path, JSON.stringify(users), async(err) => {
             await ctx.replyWithDocument({ source: path });
             cleanup();
         });
     });
-}
+});
 
-exports.xlsx = (ctx) => {
+exports.xlsx = getVisitorsMiddleware((ctx, users) => {
     tmpFile("users-", ".xlsx", (path, fd, cleanup) => {
-        fs.writeFile(path, result, async(err) => {
+        const data = [
+            _.keys(users[0]),
+            ...users.map((user) => _.values(user))
+        ];
+        const buffer = xlsx.build([{ name: "mySheetName", data: data }]);
+        fs.writeFile(path, buffer, async(err) => {
             await ctx.replyWithDocument({ source: path });
             cleanup();
         });
     });
-}
+});
+
+exports.xml = getVisitorsMiddleware((ctx, users) => {
+    const builder = new xml2js.Builder();
+    tmpFile("users-", ".xml", (path, fd, cleanup) => {
+        const obj = {
+            users: { user: users }
+        };
+        const xml = builder.buildObject(obj);
+        fs.writeFile(path, xml, async(err) => {
+            await ctx.replyWithDocument({ source: path });
+            cleanup();
+        });
+    });
+});

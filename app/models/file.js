@@ -31,11 +31,6 @@ const FileSchema = mongoose.Schema({
     // лайки и дизлайки
     likes: [Number],
     dislikes: [Number],
-    // люди, которые перешли по ссылке
-    users: [{
-        user: { type: ObjectId, ref: "User" },
-        date: { type: Date, default: Date.now },
-    }],
 });
 
 FileSchema.statics.getFileToUser = async function(query = {}) {
@@ -56,11 +51,6 @@ FileSchema.statics.getFileToUser = async function(query = {}) {
     ]);
 
     return file;
-};
-
-FileSchema.statics.registerView = async function(ctx, file) {
-    const userId = ctx.session.authToken;
-    return await this.update({ _id: file._id }, { $push: { users: { user: userId } } });
 };
 
 FileSchema.statics.rateFile = function(ctx, assessment = "likes") {

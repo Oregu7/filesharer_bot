@@ -50,6 +50,7 @@ callback.on(DISLIKE_ACTION, rateActions.dislike);
 callback.on(STATISTICS_CSV_ACTION, statisticsActions.csv);
 callback.on(STATISTICS_JSON_ACTION, statisticsActions.json);
 callback.on(STATISTICS_XLSX_ACTION, statisticsActions.xlsx);
+callback.on(STATISTICS_XML_ACTION, statisticsActions.xml);
 callback.on(DELETE_ACTION, deleteAction);
 
 module.exports = callback;
