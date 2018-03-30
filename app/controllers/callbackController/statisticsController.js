@@ -1,11 +1,17 @@
 const _ = require("lodash");
+const mongoose = require("mongoose");
+const Markup = require("telegraf/markup");
 const csv = require("fast-csv");
 const xlsx = require("node-xlsx");
 const xml2js = require("xml2js");
 const fs = require("fs");
 const tmp = require("tmp");
+const {
+    STATISTICS_ACTION,
+    BACK_ACTION,
+} = require("config").get("constants");
 
-const { VisitorModel } = require("../../models");
+const { VisitorModel, FileModel } = require("../../models");
 
 function getVisitorsMiddleware(callback) {
     return async(ctx) => {
@@ -16,15 +22,21 @@ function getVisitorsMiddleware(callback) {
     }
 }
 
-function tmpFile(prefix, postfix, callback) {
+function tmpFile(ctx, prefix, postfix, callback) {
     tmp.file({ mode: 0644, prefix, postfix }, function _tempFileCreated(err, path, fd, cleanup) {
-        if (err) throw err;
-        callback(path, fd, cleanup);
+        try {
+            if (err) throw err;
+            ctx.answerCbQuery();
+            ctx.reply("Начинаю загрузку файла...");
+            return callback(path, fd, cleanup);
+        } catch (err) {
+            return ctx.reply("Что-то пошло не так :(");
+        }
     });
 }
 
 exports.csv = getVisitorsMiddleware((ctx, users) => {
-    tmpFile("users-", ".csv", (path, fd, cleanup) => {
+    tmpFile(ctx, "users-", ".csv", (path, fd, cleanup) => {
         csv
             .writeToPath(path, users, { headers: true })
             .on("finish", async(error) => {
@@ -32,19 +44,19 @@ exports.csv = getVisitorsMiddleware((ctx, users) => {
                 cleanup();
             });
     });
-});
+})
 
 exports.json = getVisitorsMiddleware((ctx, users) => {
-    tmpFile("users-", ".json", (path, fd, cleanup) => {
+    tmpFile(ctx, "users-", ".json", (path, fd, cleanup) => {
         fs.writeFile(path, JSON.stringify(users), async(err) => {
             await ctx.replyWithDocument({ source: path });
             cleanup();
         });
     });
-});
+})
 
 exports.xlsx = getVisitorsMiddleware((ctx, users) => {
-    tmpFile("users-", ".xlsx", (path, fd, cleanup) => {
+    tmpFile(ctx, "users-", ".xlsx", (path, fd, cleanup) => {
         const data = [
             _.keys(users[0]),
             ...users.map((user) => _.values(user))
@@ -55,11 +67,11 @@ exports.xlsx = getVisitorsMiddleware((ctx, users) => {
             cleanup();
         });
     });
-});
+})
 
 exports.xml = getVisitorsMiddleware((ctx, users) => {
     const builder = new xml2js.Builder();
-    tmpFile("users-", ".xml", (path, fd, cleanup) => {
+    tmpFile(ctx, "users-", ".xml", (path, fd, cleanup) => {
         const obj = {
             users: { user: users }
         };
@@ -69,4 +81,29 @@ exports.xml = getVisitorsMiddleware((ctx, users) => {
             cleanup();
         });
     });
-});
+})
+
+exports.info = async(ctx) => {
+    ctx.answerCbQuery("Формирую статистику \u{1F4C8}", true);
+    const id = ctx.state.payload;
+    const [file, visitors] = await Promise.all([
+        FileModel.getFileToUser({ _id: mongoose.Types.ObjectId(id) }),
+        VisitorModel.getVisitorsCount(id)
+    ]);
+
+    const keyboard = Markup.inlineKeyboard([
+        [Markup.callbackButton("\u{2B50} Рейтинг:", `${file._id}`)],
+        [
+            Markup.callbackButton(`\u{1F44D} - ${file.likesCount}`, `${file._id}`),
+            Markup.callbackButton(`\u{1F44E} - ${file.dislikesCount}`, `${file._id}`),
+        ],
+        [Markup.callbackButton("\u{1F465} Количество просмотров:", `${file._id}`)],
+        [Markup.callbackButton(`${visitors}`, `${file._id}`)],
+        [
+            Markup.callbackButton(ctx.i18n.t("file.backButton"), `${STATISTICS_ACTION}:${file._id}`),
+            Markup.callbackButton(ctx.i18n.t("file.menuButton"), `${BACK_ACTION}:${file._id}`),
+        ],
+    ]);
+
+    return ctx.editMessageReplyMarkup(keyboard);
+}

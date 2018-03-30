@@ -6,6 +6,7 @@ const {
     STATISTICS_JSON_ACTION,
     STATISTICS_XML_ACTION,
     STATISTICS_XLSX_ACTION,
+    STATISTICS_INFO_ACTION,
     REMOVE_ACTION,
     DELETE_ACTION,
     BACK_ACTION,
@@ -51,6 +52,9 @@ callback.on(STATISTICS_CSV_ACTION, statisticsActions.csv);
 callback.on(STATISTICS_JSON_ACTION, statisticsActions.json);
 callback.on(STATISTICS_XLSX_ACTION, statisticsActions.xlsx);
 callback.on(STATISTICS_XML_ACTION, statisticsActions.xml);
+callback.on(STATISTICS_INFO_ACTION, statisticsActions.info);
 callback.on(DELETE_ACTION, deleteAction);
+
+callback.otherwise((ctx) => ctx.answerCbQuery());
 
 module.exports = callback;

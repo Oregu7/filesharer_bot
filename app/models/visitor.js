@@ -29,4 +29,10 @@ VisitorSchema.statics.getVisitors = async function(ctx) {
     return visitors.map((visitor) => visitor.toObject());
 };
 
+VisitorSchema.statics.getVisitorsCount = function(id) {
+    return this.find({ fileId: id })
+        .sort("-date")
+        .count();
+};
+
 module.exports = mongoose.model("Visitor", VisitorSchema);
