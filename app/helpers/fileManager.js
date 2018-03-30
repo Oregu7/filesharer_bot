@@ -6,7 +6,11 @@ const { FileModel } = require("../models");
 const {
     SETTINGS_ACTION,
     STATISTICS_ACTION,
-    STATISTICS_FILE_ACTION,
+    STATISTICS_CSV_ACTION,
+    STATISTICS_JSON_ACTION,
+    STATISTICS_XML_ACTION,
+    STATISTICS_XLSX_ACTION,
+    STATISTICS_INFO_ACTION,
     REMOVE_ACTION,
     DELETE_ACTION,
     PASSWORD_ACTION,
@@ -79,12 +83,12 @@ function createSettingsKeyboard(ctx, fileId) {
 
 function createStaticsKeyboard(ctx, fileId) {
     return Markup.inlineKeyboard([
-        [Markup.callbackButton(ctx.i18n.t("file.statisticsInfoButton"), `${STATISTICS_FILE_ACTION}:${fileId}`)],
+        [Markup.callbackButton(ctx.i18n.t("file.statisticsInfoButton"), `${STATISTICS_INFO_ACTION}:${fileId}`)],
         [
-            Markup.callbackButton(".csv", `${STATISTICS_FILE_ACTION}:${fileId}`),
-            Markup.callbackButton(".xls", `${STATISTICS_FILE_ACTION}:${fileId}`),
-            Markup.callbackButton(".xml", `${STATISTICS_FILE_ACTION}:${fileId}`),
-            Markup.callbackButton(".json", `${STATISTICS_FILE_ACTION}:${fileId}`),
+            Markup.callbackButton(".csv", `${STATISTICS_CSV_ACTION}:${fileId}`),
+            Markup.callbackButton(".xls", `${STATISTICS_XLSX_ACTION}:${fileId}`),
+            Markup.callbackButton(".xml", `${STATISTICS_XML_ACTION}:${fileId}`),
+            Markup.callbackButton(".json", `${STATISTICS_JSON_ACTION}:${fileId}`),
         ],
         [Markup.callbackButton(ctx.i18n.t("file.backButton"), `${BACK_ACTION}:${fileId}`)],
     ]);

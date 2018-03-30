@@ -1,4 +1,5 @@
 const Markup = require("telegraf/markup");
+const mongoose = require("mongoose");
 const {
     SETTINGS_ACTION,
     BACK_ACTION,
@@ -6,7 +7,8 @@ const {
     RATE_ON_ACTION,
     RATE_OFF_ACTION,
 } = require("config").get("constants");
-const { isExistFileMiddleware } = require("../../helpers/fileManager");
+const { isExistFileMiddleware, createUserKeyboard } = require("../../helpers/fileManager");
+const { FileModel } = require("../../models");
 
 function getRadioButton(file, need = false) {
     const { rate } = file.options;
@@ -42,6 +44,17 @@ function switchFileRate(rate = false) {
     };
 }
 
+function rateFile(assessment = "likes") {
+    return async(ctx) => {
+        const id = ctx.state.payload;
+        ctx.answerCbQuery(ctx.i18n.t("rate.assessmentCbMessage", { assessment }));
+        await FileModel.rateFile(ctx, assessment);
+        const file = await FileModel.getFileToUser({ _id: mongoose.Types.ObjectId(id) });
+        const keyboard = createUserKeyboard(ctx, file);
+        return ctx.editMessageReplyMarkup(keyboard);
+    };
+}
+
 exports.base = isExistFileMiddleware((ctx, file) => {
     const keyboard = createRateKeyboard(ctx, file);
     return ctx.editMessageReplyMarkup(keyboard);
@@ -53,3 +66,5 @@ exports.info = (ctx) => {
 
 exports.on = isExistFileMiddleware(switchFileRate(true));
 exports.off = isExistFileMiddleware(switchFileRate(false));
+exports.like = rateFile("likes");
+exports.dislike = rateFile("dislikes");

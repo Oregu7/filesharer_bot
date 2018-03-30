@@ -28,3 +28,4 @@ rate:
   infoButton: \u{1F44D}Лайки / Дизлайки\u{1F44E}
   onButton: Вкл.
   offButton: Откл.
+  assessmentCbMessage: ${assessment == "likes" ? "\u{1F44D}Лайк" :"Дизлайк\u{1F44E}"}

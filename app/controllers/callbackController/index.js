@@ -2,6 +2,10 @@ const Router = require("telegraf/router");
 const {
     SETTINGS_ACTION,
     STATISTICS_ACTION,
+    STATISTICS_CSV_ACTION,
+    STATISTICS_JSON_ACTION,
+    STATISTICS_XML_ACTION,
+    STATISTICS_XLSX_ACTION,
     REMOVE_ACTION,
     DELETE_ACTION,
     BACK_ACTION,
@@ -17,8 +21,8 @@ const { enter } = require("telegraf/stage");
 // actions
 const switchToMenuAction = require("./switchToMenuAction");
 const deleteAction = require("./deleteAction");
-const rateAction = require("./rateController");
-const rateFileAction = require("./rateFileController");
+const rateActions = require("./rateController");
+const statisticsActions = require("./statisticsController");
 
 // router
 const callback = new Router(({ callbackQuery }) => {
@@ -37,12 +41,15 @@ callback.on(STATISTICS_ACTION, switchToMenuAction(STATISTICS_ACTION));
 callback.on(BACK_ACTION, switchToMenuAction("main"));
 
 callback.on(PASSWORD_ACTION, enter(PASSWORD_ACTION));
-callback.on(RATE_ACTION, rateAction.base);
-callback.on(RATE_INFO_ACTION, rateAction.info);
-callback.on(RATE_ON_ACTION, rateAction.on);
-callback.on(RATE_OFF_ACTION, rateAction.off);
-callback.on(LIKE_ACTION, rateFileAction("likes"));
-callback.on(DISLIKE_ACTION, rateFileAction("dislikes"));
+callback.on(RATE_ACTION, rateActions.base);
+callback.on(RATE_INFO_ACTION, rateActions.info);
+callback.on(RATE_ON_ACTION, rateActions.on);
+callback.on(RATE_OFF_ACTION, rateActions.off);
+callback.on(LIKE_ACTION, rateActions.like);
+callback.on(DISLIKE_ACTION, rateActions.dislike);
+callback.on(STATISTICS_CSV_ACTION, statisticsActions.csv);
+callback.on(STATISTICS_JSON_ACTION, statisticsActions.json);
+callback.on(STATISTICS_XLSX_ACTION, statisticsActions.xlsx);
 callback.on(DELETE_ACTION, deleteAction);
 
 module.exports = callback;

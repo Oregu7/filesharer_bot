@@ -24,7 +24,7 @@ sendFileToUserScene.enter(async(ctx) => {
     } else {
         ctx.scene.state.file = file;
         const keyboard = getBaseKeyboard(ctx);
-        return ctx.reply("Для получения доступа к файлу, пожалуйста введите пароль (￢_￢;) :", keyboard);
+        return ctx.reply("Для получения доступа к файлу, пожалуйста введите пароль:", keyboard);
     }
 });
 sendFileToUserScene.leave((ctx) => {
@@ -36,10 +36,10 @@ sendFileToUserScene.hears(/(назад|отмена)/i, leave());
 sendFileToUserScene.on("text", async(ctx) => {
     const password = md5(ctx.message.text);
     const file = getFileFromState(ctx);
-    if (file.password !== password) return ctx.reply("Вы ввели неверный пароль (￢‿￢ )!");
+    if (file.password !== password) return ctx.reply("Вы ввели неверный пароль (￢_￢)");
     // выходим из сцены
     ctx.scene.reset();
-    await ctx.reply(ctx.i18n.t("password.setMessage"), removeKeyboard);
+    await ctx.reply("Доступ к файлу открыт.", removeKeyboard);
     return sendFileToUser(ctx, file);
 });
 
@@ -54,7 +54,7 @@ function getFileFromState(ctx) {
 
 function getBaseKeyboard(ctx) {
     return Markup.keyboard([
-        Markup.button(ctx.i18n.t("password.backButton")),
+        Markup.button("\u{2716}Отмена"),
     ]).resize(true).extra();
 }
 
