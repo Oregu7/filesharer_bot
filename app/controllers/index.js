@@ -37,10 +37,13 @@ const addController = require("./addController");
 const addFileController = require("./addFileController");
 const callbackController = require("./callbackController");
 const inlineQueryController = require("./inlineQueryController");
+const fileController = require("./fileController");
+
 module.exports = {
     startController,
     addController,
     addFileController,
+    fileController,
     callbackController,
     inlineQueryController,
 };

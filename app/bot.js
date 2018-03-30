@@ -27,6 +27,8 @@ bot.use(stage.middleware());
 // commands
 bot.start(controllers.startController);
 bot.command("add", controllers.addController);
+bot.command("files", controllers.fileController.files);
+bot.hears(/^\/file@([A-z0-9_-]+)$/, controllers.fileController.getFile);
 // patterns
 // events
 bot.on("photo", controllers.addFileController("photo"));
