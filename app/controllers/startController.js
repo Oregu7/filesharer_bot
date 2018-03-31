@@ -24,6 +24,5 @@ module.exports = async(ctx) => {
     }
 
     if (route == "/") return startCommand(ctx);
-
     return otherwise(ctx, route);
 };

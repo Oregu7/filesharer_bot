@@ -29,7 +29,7 @@ sendFileToUserScene.enter(async(ctx) => {
     }
 });
 sendFileToUserScene.leave((ctx) => {
-    return ctx.reply(ctx.i18n.t("sendFile.cancel"));
+    return ctx.reply(ctx.i18n.t("sendFile.cancel"), removeKeyboard);
 });
 // handlers
 sendFileToUserScene.hears(/(назад|отмена|cancel|back)/i, leave());

@@ -15,6 +15,7 @@ const RATE_ON_ACTION = "rate_on";
 const RATE_OFF_ACTION = "rate_off";
 const REPLY_ACTION = "reply";
 const BACK_ACTION = "back";
+const LANG_ACTION = "lang";
 
 const LIKE_ACTION = "like";
 const DISLIKE_ACTION = "dislike";
@@ -40,5 +41,6 @@ module.exports = {
     BACK_ACTION,
     LIKE_ACTION,
     DISLIKE_ACTION,
+    LANG_ACTION,
     SEND_FILE_TO_USER_SCENE,
 };

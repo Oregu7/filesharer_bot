@@ -26,7 +26,7 @@ passwordScene.leave(async(ctx) => {
 });
 // handlers
 passwordScene.hears(/(к настройкам|назад|отмена|back|cancel|to settings)/i, leave());
-passwordScene.hears(/(удалить|delete)/i, async(ctx) => {
+passwordScene.hears(/(удалить|delete|remove)/i, async(ctx) => {
     const file = getFileFromState(ctx);
     await FileModel.update({ _id: file._id }, { $set: { password: "" } });
     // выходим из сцены

@@ -13,7 +13,7 @@ const bot = new Telegraf(token);
 const i18n = new I18n({
     directory: path.resolve(__dirname, "locales"),
     defaultLanguage: "ru",
-    sessionName: "session",
+    useSession: true,
 });
 // Create scene manager
 const stage = new Stage();
@@ -28,6 +28,7 @@ bot.use(stage.middleware());
 bot.start(controllers.startController);
 bot.command("add", controllers.addController);
 bot.command("files", controllers.fileController.files);
+bot.command("lang", controllers.langController);
 bot.hears(/^\/file@([A-z0-9_-]+)$/, controllers.fileController.getFile);
 // patterns
 // events

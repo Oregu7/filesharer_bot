@@ -15,6 +15,7 @@ const {
     RATE_ON_ACTION,
     RATE_OFF_ACTION,
     PASSWORD_ACTION,
+    LANG_ACTION,
     LIKE_ACTION,
     DISLIKE_ACTION,
 } = require("config").get("constants");
@@ -24,6 +25,7 @@ const switchToMenuAction = require("./switchToMenuAction");
 const deleteAction = require("./deleteAction");
 const rateActions = require("./rateController");
 const statisticsActions = require("./statisticsController");
+const langAction = require("./langAction");
 
 // router
 const callback = new Router(({ callbackQuery }) => {
@@ -53,6 +55,7 @@ callback.on(STATISTICS_JSON_ACTION, statisticsActions.json);
 callback.on(STATISTICS_XLSX_ACTION, statisticsActions.xlsx);
 callback.on(STATISTICS_XML_ACTION, statisticsActions.xml);
 callback.on(STATISTICS_INFO_ACTION, statisticsActions.info);
+callback.on(LANG_ACTION, langAction);
 callback.on(DELETE_ACTION, deleteAction);
 
 callback.otherwise((ctx) => ctx.answerCbQuery());
