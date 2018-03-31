@@ -3,8 +3,8 @@ const { SEND_FILE_TO_USER_SCENE } = require("config").get("constants");
 const { UserModel } = require("../models");
 
 function startCommand(ctx) {
-    const startMessage = ctx.i18n.t("start_command");
-    const commands = ctx.i18n.t("commands");
+    const startMessage = ctx.i18n.t("base.startCommand");
+    const commands = ctx.i18n.t("base.commandsList");
     return ctx.reply(`${startMessage}\n\n${commands}`, Extra.HTML());
 }
 

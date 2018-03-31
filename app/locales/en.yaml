@@ -1,2 +1,57 @@
-start_command: <b>FileSharer Bot - </b> this is a bot that will allow you to share\nfiles with other users.
-commands: <b>Basic</b>\n/add - add file\n/files - my files\n\n<b>Help</b>\n/help - support\n/feedback - contact us\n\n/rate - evaluate bot
+base:
+  startCommand: <b>FileSharer Bot - </b> this is a bot that will allow you to share\nfiles with other users.
+  addCommand: To add a new <b>file</b>, simply <b>send it</b> to me!\n\nI support the following <b>formats</b> of data:\n
+  addFileCommand: Uploading file...
+  getFileCommand: \u{26A0}This file was not found!
+  filesCommand: Select file type
+  deleteAction: File deleted!
+  commandsList: <b>Basic</b>\n/add - add file\n/files - my files\n\n<b>Help</b>\n/help - support\n/feedback - contact us\n\n/rate - evaluate bot
+  dataFormats: \u{1F5BC}<code>images</code>\n\u{1F4F9}<code>video</code>\n\u{1F3B5}<code>audio files</code>\n\u{1F4E6}<code>documents</code>\n\u{1F3A4}<code>voice messages</code>
+file: 
+  caption: link:https://t.me/filesharer_bot?start=${publicId}
+  deletedCbMessage: It looks like the file has already been deleted :(
+  settingsButton: \u{2699}Settings
+  statisticsButton: \u{1F4CA}Statistics
+  statisticsInfoButton: \u{1F4C8}Indicators
+  replyButton: \u{1F4E2}Share this
+  removeButton: \u{274C}Remove
+  deleteButton: \u{1F5D1}Yes, delete
+  passwordButton: \u{1F510}Password
+  rateButton: \u{2B50}Rating
+  backButton: \u{1F519}Go back
+  menuButton: \u{1F3E0}To the main
+password: 
+  startMessage: Enter a new password\n\u{1F511}password:${"*".repeat(password.length)}
+  deleteMessage: The current password was successfully deleted !
+  setMessage: New password successfully installed !
+  cancelMessage: Well, that means not this time ヽ(ー_ー )ノ
+  setCbMessage: \u{1F510}Set password
+  backButton: \u{2699}To settings
+  removeButton: \u{2702}Remove
+rate:
+  infoCbMessage: Evaluation system for your files
+  infoButton: \u{1F44D}Likes / Dislikes\u{1F44E}
+  onButton: On.
+  offButton: Off.
+  assessmentCbMessage: ${assessment == "likes" ? "\u{1F44D}Like" :"Dislike\u{1F44E}"}
+files:
+  all: \u{1F300}all
+  photo: \u{1F5BC}images
+  document: \u{1F4E6}documents
+  audio: \u{1F3B5}audio files
+  video: \u{1F4F9}video
+  voice: \u{1F3A4}voice messages
+statistics:
+  visitorsNotExistCbMessage: Nobody viewed this file!
+  infoCbMessage: I create statistics \u{1F4C8}
+  loadStart: I'm starting to download the file...
+  loadError: Something went wrong :(
+  rateButton: \u{2B50} Rating
+  visitorsCount: \u{1F465} Number of Views
+sendFile:
+  notExist: I did not find a file with this ID ヽ(・_・ )ノ
+  needPassword: To access the file, please enter the password
+  cancel: Well, that means not this time ヽ(ー_ー )ノ
+  incorrectPassword: You entered an incorrect password (￢_￢)
+  accessOpening: Access to the file is open.
+  cancelButton: \u{2716}Cancel

@@ -1,7 +1,12 @@
-start_command: <b>FileSharer Bot - </b> это бот, который позволит вам делиться\nфайлами с другими пользователями.
-commands: <b>Основные</b>\n/add - добавить файл\n/files - мои файлы\n\n<b>Помощь</b>\n/help - справка\n/feedback - связаться с нами\n\n/rate - оценить бот
-add_command: Чтобы добавить новый <b>файл</b>, просто <b>отправьте</b> его мне!\n\nЯ поддерживаю следующие <b>форматы</b> данных:\n
-data_formats: \u{1F5BC}<code>изображения</code>\n\u{1F4F9}<code>видеозаписи</code>\n\u{1F3B5}<code>аудио-файлы</code>\n\u{1F4E6}<code>документы</code>\n\u{1F3A4}<code>голосовые сообщения</code>
+base:
+  startCommand: <b>FileSharer Bot - </b> это бот, который позволит вам делиться\nфайлами с другими пользователями.
+  addCommand: Чтобы добавить новый <b>файл</b>, просто <b>отправьте</b> его мне!\n\nЯ поддерживаю следующие <b>форматы</b> данных:\n
+  addFileCommand: Загружаю файл...
+  getFileCommand: \u{26A0}Данный файл не найден!
+  filesCommand: Выберете тип файлов
+  deleteAction: Файл удален!
+  commandsList: <b>Основные</b>\n/add - добавить файл\n/files - мои файлы\n\n<b>Помощь</b>\n/help - справка\n/feedback - связаться с нами\n\n/rate - оценить бот
+  dataFormats: \u{1F5BC}<code>изображения</code>\n\u{1F4F9}<code>видеозаписи</code>\n\u{1F3B5}<code>аудио-файлы</code>\n\u{1F4E6}<code>документы</code>\n\u{1F3A4}<code>голосовые сообщения</code>
 file: 
   caption: ссылка:https://t.me/filesharer_bot?start=${publicId}
   deletedCbMessage: Похоже файл уже удален :(
@@ -29,3 +34,24 @@ rate:
   onButton: Вкл.
   offButton: Откл.
   assessmentCbMessage: ${assessment == "likes" ? "\u{1F44D}Лайк" :"Дизлайк\u{1F44E}"}
+files:
+  all: \u{1F300}все
+  photo: \u{1F5BC}изображения
+  document: \u{1F4E6}документы
+  audio: \u{1F3B5}аудио-файлы
+  video: \u{1F4F9}видеозаписи
+  voice: \u{1F3A4}голосовые сообщения
+statistics:
+  visitorsNotExistCbMessage: Никто не просматривал данный файл!
+  infoCbMessage: Формирую статистику \u{1F4C8}
+  loadStart: Начинаю загрузку файла...
+  loadError: Что-то пошло не так :(
+  rateButton: \u{2B50} Рейтинг
+  visitorsCount: \u{1F465} Количество просмотров
+sendFile:
+  notExist: Я не нашел файл с данным идентификатором ヽ(・_・ )ノ
+  needPassword: Для получения доступа к файлу, пожалуйста введите пароль
+  cancel: Ну что ж, значит не в этот раз ヽ(ー_ー )ノ
+  incorrectPassword: Вы ввели неверный пароль (￢_￢)
+  accessOpening: Доступ к файлу открыт.
+  cancelButton: \u{2716}Отмена

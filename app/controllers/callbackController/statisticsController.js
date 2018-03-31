@@ -18,7 +18,7 @@ function getVisitorsMiddleware(callback) {
         const users = await VisitorModel.getVisitors(ctx);
         if (users.length) return callback(ctx, users);
 
-        return ctx.answerCbQuery("Никто не просматривал данный файл!");
+        return ctx.answerCbQuery(ctx.i18n.t("statistics.visitorsNotExistCbMessage"));
     }
 }
 
@@ -27,10 +27,10 @@ function tmpFile(ctx, prefix, postfix, callback) {
         try {
             if (err) throw err;
             ctx.answerCbQuery();
-            ctx.reply("Начинаю загрузку файла...");
+            ctx.reply(ctx.i18n.t("statistics.loadStart"));
             return callback(path, fd, cleanup);
         } catch (err) {
-            return ctx.reply("Что-то пошло не так :(");
+            return ctx.reply(ctx.i18n.t("statistics.loadError"));
         }
     });
 }
@@ -61,7 +61,7 @@ exports.xlsx = getVisitorsMiddleware((ctx, users) => {
             _.keys(users[0]),
             ...users.map((user) => _.values(user))
         ];
-        const buffer = xlsx.build([{ name: "mySheetName", data: data }]);
+        const buffer = xlsx.build([{ name: "visitors", data: data }]);
         fs.writeFile(path, buffer, async(err) => {
             await ctx.replyWithDocument({ source: path });
             cleanup();
@@ -84,7 +84,8 @@ exports.xml = getVisitorsMiddleware((ctx, users) => {
 })
 
 exports.info = async(ctx) => {
-    ctx.answerCbQuery("Формирую статистику \u{1F4C8}", true);
+    const { i18n } = ctx;
+    ctx.answerCbQuery(i18n.t("statistics.infoCbMessage"), true);
     const id = ctx.state.payload;
     const [file, visitors] = await Promise.all([
         FileModel.getFileToUser({ _id: mongoose.Types.ObjectId(id) }),
@@ -92,12 +93,12 @@ exports.info = async(ctx) => {
     ]);
 
     const keyboard = Markup.inlineKeyboard([
-        [Markup.callbackButton("\u{2B50} Рейтинг:", `${file._id}`)],
+        [Markup.callbackButton(`${i18n.t("statistics.rateButton")}:`, `${file._id}`)],
         [
             Markup.callbackButton(`\u{1F44D} - ${file.likesCount}`, `${file._id}`),
             Markup.callbackButton(`\u{1F44E} - ${file.dislikesCount}`, `${file._id}`),
         ],
-        [Markup.callbackButton("\u{1F465} Количество просмотров:", `${file._id}`)],
+        [Markup.callbackButton(`${i18n.t("statistics.visitorsCount")}:`, `${file._id}`)],
         [Markup.callbackButton(`${visitors}`, `${file._id}`)],
         [
             Markup.callbackButton(ctx.i18n.t("file.backButton"), `${STATISTICS_ACTION}:${file._id}`),

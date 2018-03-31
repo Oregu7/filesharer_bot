@@ -13,21 +13,22 @@ exports.getFile = async(ctx) => {
         });
 
     if (file && file.author.userId === userId) return sendFile(ctx, file);
-    else return ctx.reply("\u{26A0}Данный файл не найден!");
+    else return ctx.reply(ctx.i18n.t("base.getFileCommand"));
 };
 
 exports.files = (ctx) => {
-    const message = "Выберете тип файлов:";
+    const { i18n } = ctx;
+    const message = i18n.t("base.filesCommand");
     const keyboard = Markup.inlineKeyboard([
-        [Markup.switchToCurrentChatButton("\u{1F300}все", "all:")],
+        [Markup.switchToCurrentChatButton(i18n.t("files.all"), "all:")],
         [
-            Markup.switchToCurrentChatButton("\u{1F5BC}изображения", "photo:"),
-            Markup.switchToCurrentChatButton("\u{1F4E6}документы", "document:"),
-            Markup.switchToCurrentChatButton("\u{1F3B5}аудио-файлы", "audio:"),
+            Markup.switchToCurrentChatButton(i18n.t("files.photo"), "photo:"),
+            Markup.switchToCurrentChatButton(i18n.t("files.document"), "document:"),
+            Markup.switchToCurrentChatButton(i18n.t("files.audio"), "audio:"),
         ],
         [
-            Markup.switchToCurrentChatButton("\u{1F4F9}видеозаписи", "video:"),
-            Markup.switchToCurrentChatButton("\u{1F3A4}голосовые сообщения", "voice:"),
+            Markup.switchToCurrentChatButton(i18n.t("files.video"), "video:"),
+            Markup.switchToCurrentChatButton(i18n.t("files.voice"), "voice:"),
         ],
     ]);
 

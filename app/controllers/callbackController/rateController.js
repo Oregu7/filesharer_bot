@@ -10,27 +10,29 @@ const {
 const { isExistFileMiddleware, createUserKeyboard } = require("../../helpers/fileManager");
 const { FileModel } = require("../../models");
 
+// вид переключателя (need => (on = true, off = false))
 function getRadioButton(file, need = false) {
     const { rate } = file.options;
     return rate === need ? "\u{1F518}" : "\u{26AA}";
 }
 
 function createRateKeyboard(ctx, file) {
+    const { i18n } = ctx;
     return Markup.inlineKeyboard([
-        [Markup.callbackButton(ctx.i18n.t("rate.infoButton"), `${RATE_INFO_ACTION}:${file._id}`)],
+        [Markup.callbackButton(i18n.t("rate.infoButton"), `${RATE_INFO_ACTION}:${file._id}`)],
         [
             Markup.callbackButton(
-                `${getRadioButton(file, true)}${ctx.i18n.t("rate.onButton")}`,
+                `${getRadioButton(file, true)}${i18n.t("rate.onButton")}`,
                 `${RATE_ON_ACTION}:${file._id}`
             ),
             Markup.callbackButton(
-                `${getRadioButton(file, false)}${ctx.i18n.t("rate.offButton")}`,
+                `${getRadioButton(file, false)}${i18n.t("rate.offButton")}`,
                 `${RATE_OFF_ACTION}:${file._id}`
             ),
         ],
         [
-            Markup.callbackButton(ctx.i18n.t("file.backButton"), `${SETTINGS_ACTION}:${file._id}`),
-            Markup.callbackButton(ctx.i18n.t("file.menuButton"), `${BACK_ACTION}:${file._id}`),
+            Markup.callbackButton(i18n.t("file.backButton"), `${SETTINGS_ACTION}:${file._id}`),
+            Markup.callbackButton(i18n.t("file.menuButton"), `${BACK_ACTION}:${file._id}`),
         ],
     ]);
 }
