@@ -20,6 +20,7 @@ const LANG_ACTION = "lang";
 const LIKE_ACTION = "like";
 const DISLIKE_ACTION = "dislike";
 const SEND_FILE_TO_USER_SCENE = "send_file_to_user";
+const LANG_SCENE = "lang_scene";
 
 module.exports = {
     SETTINGS_ACTION,
@@ -42,5 +43,6 @@ module.exports = {
     LIKE_ACTION,
     DISLIKE_ACTION,
     LANG_ACTION,
+    LANG_SCENE,
     SEND_FILE_TO_USER_SCENE,
 };

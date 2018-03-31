@@ -12,14 +12,11 @@ const token = config.get("bot.token");
 const bot = new Telegraf(token);
 const i18n = new I18n({
     directory: path.resolve(__dirname, "locales"),
-    defaultLanguage: "ru",
+    defaultLanguage: "en",
     useSession: true,
 });
 // Create scene manager
-const stage = new Stage();
-// Scene registration
-stage.register(scenes.passwordScene);
-stage.register(scenes.sendFileToUserScene);
+const stage = new Stage(scenes);
 // middlewares
 bot.use(localSession.middleware());
 bot.use(i18n.middleware());

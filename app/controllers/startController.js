@@ -1,17 +1,7 @@
-const Extra = require("telegraf/extra");
-const { SEND_FILE_TO_USER_SCENE } = require("config").get("constants");
+const { LANG_SCENE } = require("config").get("constants");
 const { UserModel } = require("../models");
+const { startRouterDispatch } = require("../helpers");
 
-function startCommand(ctx) {
-    const startMessage = ctx.i18n.t("base.startCommand");
-    const commands = ctx.i18n.t("base.commandsList");
-    return ctx.reply(`${startMessage}\n\n${commands}`, Extra.HTML());
-}
-
-async function otherwise(ctx, publicId) {
-    ctx.state.payload = publicId;
-    return ctx.scene.enter(SEND_FILE_TO_USER_SCENE);
-}
 
 module.exports = async(ctx) => {
     const parts = ctx.message.text.split(" ");
@@ -21,8 +11,8 @@ module.exports = async(ctx) => {
         let user = await UserModel.createByContext(ctx);
         console.log(`[ new client ] => ${user.username}:${user.userId}`);
         ctx.session.authToken = user._id;
+        return ctx.scene.enter(LANG_SCENE, { route });
     }
 
-    if (route == "/") return startCommand(ctx);
-    return otherwise(ctx, route);
+    return startRouterDispatch(ctx, route);
 };

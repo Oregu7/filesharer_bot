@@ -12,7 +12,7 @@ const removeKeyboard = Markup.removeKeyboard().extra();
 // base actions
 sendFileToUserScene.enter(async(ctx) => {
     const { i18n } = ctx;
-    const publicId = ctx.state.payload;
+    const publicId = ctx.scene.state.publicId;
     const file = await FileModel.getFileToUser({ publicId });
     if (!file) {
         // выходим из сцены

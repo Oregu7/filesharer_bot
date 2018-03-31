@@ -6,7 +6,7 @@ base:
   filesCommand: Select file type
   langCommand: Please choose your language.
   deleteAction: File deleted!
-  commandsList: <b>Basic</b>\n/add - add file\n/files - my files\n\n<b>Help</b>\n/help - support\n/feedback - contact us\n\n/rate - evaluate bot
+  commandsList: <b>Basic</b>\n/add - add file\n/files - my files\n/lang - select language\n\n<b>Help</b>\n/help - support\n/feedback - contact us\n\n/rate - evaluate bot
   dataFormats: \u{1F5BC}<code>images</code>\n\u{1F4F9}<code>video</code>\n\u{1F3B5}<code>audio files</code>\n\u{1F4E6}<code>documents</code>\n\u{1F3A4}<code>voice messages</code>
 file: 
   caption: link:https://t.me/filesharer_bot?start=${publicId}
