@@ -38,6 +38,7 @@ const addFileController = require("./addFileController");
 const callbackController = require("./callbackController");
 const inlineQueryController = require("./inlineQueryController");
 const fileController = require("./fileController");
+const filesController = require("./filesController");
 const langController = require("./langController");
 
 module.exports = {
@@ -45,6 +46,7 @@ module.exports = {
     addController,
     addFileController,
     fileController,
+    filesController,
     langController,
     callbackController,
     inlineQueryController,

@@ -6,7 +6,7 @@ base:
   filesCommand: Select file type
   langCommand: Please choose your language.
   deleteAction: File deleted!
-  commandsList: <b>Basic</b>\n/add - add file\n/files - my files\n/lang - select language\n\n<b>Help</b>\n/help - support\n/feedback - contact us\n\n/rate - evaluate bot
+  commandsList: <b>Basic</b>\n/add - add a new file\n/files - my files\n/lang - select language\n\n<b>Help</b>\n/help - answers to basic questions\n/feedback - contact us\n\n/rate - rate bot\n/cancel - cancel the current operation
   dataFormats: \u{1F5BC}<code>images</code>\n\u{1F4F9}<code>video</code>\n\u{1F3B5}<code>audio files</code>\n\u{1F4E6}<code>documents</code>\n\u{1F3A4}<code>voice messages</code>
 file: 
   caption: link:https://t.me/filesharer_bot?start=${publicId}
@@ -21,6 +21,9 @@ file:
   rateButton: \u{2B50}Rating
   backButton: \u{1F519}Go back
   menuButton: \u{1F3E0}To the main
+  notExist: The file with this ID was not found! Perhaps it was deleted by the owner.
+  fileNotExistInline: I did not find this file!
+  filesNotExistInline: I did not find the files!
 password: 
   startMessage: Enter a new password\n\u{1F511}password:${"*".repeat(password.length)}
   deleteMessage: The current password was successfully deleted !

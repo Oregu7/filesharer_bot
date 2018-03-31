@@ -32,7 +32,8 @@ sendFileToUserScene.leave((ctx) => {
     return ctx.reply(ctx.i18n.t("sendFile.cancel"), removeKeyboard);
 });
 // handlers
-sendFileToUserScene.hears(/(назад|отмена|cancel|back)/i, leave());
+sendFileToUserScene.hears(/^\/cancel$/i, leave());
+sendFileToUserScene.hears(/(назад|отмена|back)/i, leave());
 // events
 sendFileToUserScene.on("text", async(ctx) => {
     const { i18n } = ctx;

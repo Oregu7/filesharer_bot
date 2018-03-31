@@ -43,8 +43,8 @@ async function answerFileById(ctx, queryData) {
     const file = await FileModel.searchFileById(queryData.text);
     if (file) results.push(createInlineQueryResult(file.type, ctx.i18n.locale(), true)(file));
     else {
-        extra["switch_pm_text"] = "Я не нашел данный файл!";
-        extra["switch_pm_parameter"] = "file_nexist";
+        extra["switch_pm_text"] = ctx.i18n.t("file.fileNotExistInline");
+        extra["switch_pm_parameter"] = "file_not_exist";
     }
 
     return ctx.answerInlineQuery(results, extra);
@@ -67,7 +67,7 @@ module.exports = async(ctx) => {
         };
         if (!results.length) {
             extra = Object.assign({}, extra, {
-                switch_pm_text: "Я не нашел файлы .(",
+                switch_pm_text: ctx.i18n.t("file.filesNotExistInline"),
                 switch_pm_parameter: "files",
             });
         }
