@@ -5,6 +5,9 @@ base:
   getFileCommand: \u{26A0}Данный файл не найден!
   filesCommand: Выберете тип файлов
   langCommand: Выберите ваш язык.
+  rateCommand: Привет! Если Вам понравился наш бот, пожалуйста оцените его в StoreBot.\n\u{1F44D} <b>Оценить:</b> <a href = "telegram.me/storebot?start=${bot_name}">storebot_rate</a>
+  feedbackCommand: Напишите нам в ${bot_name}, если у вас есть проблемы с использованием бота.
+  helpCommand: Мы рекомендуем Вам изучить ответы на вопросы в <a href="${help_url}">справке</a>. Это позволит Вам избежать недоразумений при использовании бота. Если же Вы изучили справку и не нашли ответа на возникший у Вас вопрос, то Вы всегда можете обратиться к нам в техподдержку используя ${bot_name}
   deleteAction: Файл удален!
   commandsList: <b>Основные</b>\n/add - добавить файл\n/files - мои файлы\n/lang - выбрать язык\n\n<b>Помощь</b>\n/help - справка\n/feedback - связаться с нами\n\n/rate - оценить бот\n/cancel - завершить текущую операцию
   dataFormats: \u{1F5BC}<code>изображения</code>\n\u{1F4F9}<code>видеозаписи</code>\n\u{1F3B5}<code>аудио-файлы</code>\n\u{1F4E6}<code>документы</code>\n\u{1F3A4}<code>голосовые сообщения</code>

@@ -40,6 +40,10 @@ const inlineQueryController = require("./inlineQueryController");
 const fileController = require("./fileController");
 const filesController = require("./filesController");
 const langController = require("./langController");
+const rateController = require("./rateController");
+const feedbackController = require("./feedbackController");
+const helpController = require("./helpController");
+const downloadConreoller = require("./downloadController");
 
 module.exports = {
     startController,
@@ -48,6 +52,10 @@ module.exports = {
     fileController,
     filesController,
     langController,
+    rateController,
+    feedbackController,
+    helpController,
+    downloadConreoller,
     callbackController,
     inlineQueryController,
 };

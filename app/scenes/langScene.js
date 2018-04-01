@@ -7,7 +7,7 @@ const langScene = new Scene(LANG_SCENE);
 function leaveScene(ctx) {
     const route = ctx.scene.state.route;
     ctx.scene.reset();
-    return startRouterDispatch(ctx, route);
+    return startRouterDispatch(ctx, route, true);
 }
 
 // base actions

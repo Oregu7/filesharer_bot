@@ -16,7 +16,7 @@ async function otherwise(ctx, publicId) {
     return ctx.scene.enter(SEND_FILE_TO_USER_SCENE, { publicId });
 }
 
-module.exports = (ctx, route = "/") => {
+module.exports = (ctx, route = "/", start = false) => {
     switch (route) {
         case "/":
             return startCommand(ctx);
@@ -25,6 +25,7 @@ module.exports = (ctx, route = "/") => {
         case "file_not_exist":
             return fileNotExistHandler(ctx);
         default:
+            if (start) startCommand(ctx);
             return otherwise(ctx, route);
     }
 };

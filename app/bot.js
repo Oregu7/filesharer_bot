@@ -26,8 +26,12 @@ bot.start(controllers.startController);
 bot.command("add", controllers.addController);
 bot.command("files", controllers.filesController);
 bot.command("lang", controllers.langController);
-bot.hears(/^\/file@([A-z0-9_-]+)$/, controllers.fileController);
+bot.command("rate", controllers.rateController);
+bot.command("feedback", controllers.feedbackController);
+bot.command("help", controllers.helpController);
+bot.command("down", controllers.downloadConreoller);
 // patterns
+bot.hears(/^\/file@([A-z0-9_-]+)$/, controllers.fileController);
 // events
 bot.on("photo", controllers.addFileController("photo"));
 bot.on("video", controllers.addFileController("video"));

@@ -25,6 +25,7 @@
         "pm2": "^2.10.1",
         "rand-token": "^0.4.0",
         "randomatic": "^3.0.0",
+        "request": "^2.85.0",
         "shortid": "^2.2.8",
         "telegraf": "^3.18.0",
         "telegraf-i18n": "^6.0.4",
