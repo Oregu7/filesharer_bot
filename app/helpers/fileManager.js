@@ -17,6 +17,7 @@ const {
     RATE_ACTION,
     LIKE_ACTION,
     SAVE_ACTION,
+    NAME_ACTION,
     DISLIKE_ACTION,
     BACK_ACTION,
 } = require("config").get("constants");
@@ -34,7 +35,7 @@ function createFile(ctx, type) {
         fileId,
         type,
         author,
-        name: fileName,
+        name: fileName.slice(0, 70),
     });
 }
 
@@ -90,10 +91,13 @@ function createRemoveKeyboard(ctx, fileId) {
 
 function createSettingsKeyboard(ctx, fileId) {
     return Markup.inlineKeyboard([
-        Markup.callbackButton(ctx.i18n.t("file.passwordButton"), `${PASSWORD_ACTION}:${fileId}`),
-        Markup.callbackButton(ctx.i18n.t("file.rateButton"), `${RATE_ACTION}:${fileId}`),
-        Markup.callbackButton(ctx.i18n.t("file.backButton"), `${BACK_ACTION}:${fileId}`),
-    ], { columns: 2 });
+        [
+            Markup.callbackButton(ctx.i18n.t("file.passwordButton"), `${PASSWORD_ACTION}:${fileId}`),
+            Markup.callbackButton(ctx.i18n.t("file.rateButton"), `${RATE_ACTION}:${fileId}`)
+        ],
+        [Markup.callbackButton(ctx.i18n.t("file.nameButton"), `${NAME_ACTION}:${fileId}`)],
+        [Markup.callbackButton(ctx.i18n.t("file.backButton"), `${BACK_ACTION}:${fileId}`)],
+    ]);
 }
 
 function createStaticsKeyboard(ctx, fileId) {
@@ -136,19 +140,9 @@ function createUserKeyboard(ctx, file) {
 }
 
 // Формирование сообщений
-function createMessage(ctx, file) {
-    const { name, description, type, publicId } = file;
-    return ctx.i18n.t("file_info", {
-        name,
-        publicId,
-        description: description || "...",
-        type,
-    });
-}
-
 function sendFileBase(ctx, file, keyboard) {
-    const { type, fileId, publicId } = file;
-    const caption = ctx.i18n.t("file.caption", { publicId });
+    const { type, fileId, publicId, name } = file;
+    const caption = ctx.i18n.t("file.caption", { publicId, name });
     const extra = Extra.load({ caption }).markup(keyboard);
 
     switch (type) {
@@ -188,7 +182,6 @@ module.exports = {
     createSettingsKeyboard,
     createRemoveKeyboard,
     createUserKeyboard,
-    createMessage,
     sendFile,
     sendFileToUser,
     sendFileBase,

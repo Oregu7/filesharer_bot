@@ -12,7 +12,7 @@ base:
   commandsList: <b>Основные</b>\n/add - добавить файл\n/files - мои файлы\n/lang - выбрать язык\n\n<b>Помощь</b>\n/help - справка\n/feedback - связаться с нами\n\n/rate - оценить бот\n/cancel - завершить текущую операцию
   dataFormats: \u{1F5BC}<code>изображения</code>\n\u{1F4F9}<code>видеозаписи</code>\n\u{1F3B5}<code>аудио-файлы</code>\n\u{1F4C1}<code>документы</code>\n\u{1F3A4}<code>голосовые сообщения</code>
 file: 
-  caption: ссылка:https://t.me/filesharer_bot?start=${publicId}
+  caption: ${name}\n\nссылка:https://t.me/filesharer_bot?start=${publicId}
   deletedCbMessage: Похоже файл уже удален :(
   settingsButton: \u{2699}Настройки
   statisticsButton: \u{1F4CA}Статистика
@@ -22,6 +22,7 @@ file:
   deleteButton: \u{1F5D1}Да, удалить
   passwordButton: \u{1F510}Пароль
   rateButton: \u{2B50}Рейтинг
+  nameButton: \u{1F4DD}Название
   backButton: \u{1F519}Назад
   menuButton: \u{1F3E0}К главной
   notExist: Файл с данным идентификатором не найден! Возможно его удалил владелец.
@@ -67,3 +68,10 @@ lang:
 save:
   button: \u{1F4BE}Сохранить
   message: \u{1F4BE}Копирую файл...
+name: 
+  startMessage: Введите новое название файла\n\n\u{2796}Ограничение:<b> ${maxSize}</b> символов\n\u{1F4DD}Название:<b> ${name}</b>
+  setMessage: Название успешно изменено !
+  lengthExceeded: \u{26A0}Вы <b>превысили</b> допустимое количество символов - <b>${size}</b> из <b>${maxSize}</b>
+  cancelMessage: Ну что ж, значит не в этот раз ヽ(ー_ー )ノ
+  setCbMessage: \u{1F4DD}Изменить название
+  backButton: \u{2699}к настройкам

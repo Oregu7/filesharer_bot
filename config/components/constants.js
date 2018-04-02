@@ -23,6 +23,7 @@ const DISLIKE_ACTION = "dislike";
 
 const SEND_FILE_TO_USER_SCENE = "send_file_to_user";
 const LANG_SCENE = "lang_scene";
+const NAME_SCENE = "name_scene";
 const PASSWORD_SCENE = "password_scene";
 
 module.exports = {
@@ -49,6 +50,7 @@ module.exports = {
     SAVE_ACTION,
     NAME_ACTION,
     LANG_SCENE,
+    NAME_SCENE,
     PASSWORD_SCENE,
     SEND_FILE_TO_USER_SCENE,
 };

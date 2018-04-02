@@ -71,8 +71,9 @@ FileSchema.statics.rateFile = function(ctx, assessment = "likes") {
     });
 };
 
-FileSchema.statics.searchFiles = function({ author, type = "article" }, page = 1, limit = 25) {
-    const req = { author };
+FileSchema.statics.searchFiles = function({ author, type = "article", text }, page = 1, limit = 25) {
+    const pattern = new RegExp(text, "i");
+    const req = { author, name: pattern };
     if (type !== "article") req["type"] = type;
 
     return this.paginate(req, {

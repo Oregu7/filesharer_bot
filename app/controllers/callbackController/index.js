@@ -18,7 +18,9 @@ const {
     LANG_ACTION,
     LIKE_ACTION,
     SAVE_ACTION,
+    NAME_ACTION,
     DISLIKE_ACTION,
+    NAME_SCENE,
     PASSWORD_SCENE,
 } = require("config").get("constants");
 const { enter } = require("telegraf/stage");
@@ -47,6 +49,7 @@ callback.on(STATISTICS_ACTION, switchToMenuAction(STATISTICS_ACTION));
 callback.on(BACK_ACTION, switchToMenuAction("main"));
 
 callback.on(PASSWORD_ACTION, enter(PASSWORD_SCENE));
+callback.on(NAME_ACTION, enter(NAME_SCENE));
 callback.on(RATE_ACTION, rateActions.base);
 callback.on(RATE_INFO_ACTION, rateActions.info);
 callback.on(RATE_ON_ACTION, rateActions.on);
