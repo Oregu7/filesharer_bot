@@ -8,12 +8,12 @@ module.exports = (ctx) => {
         [
             Markup.switchToCurrentChatButton(i18n.t("files.photo"), "photo:"),
             Markup.switchToCurrentChatButton(i18n.t("files.document"), "document:"),
-            Markup.switchToCurrentChatButton(i18n.t("files.audio"), "audio:"),
         ],
         [
+            Markup.switchToCurrentChatButton(i18n.t("files.audio"), "audio:"),
             Markup.switchToCurrentChatButton(i18n.t("files.video"), "video:"),
-            Markup.switchToCurrentChatButton(i18n.t("files.voice"), "voice:"),
         ],
+        [Markup.switchToCurrentChatButton(i18n.t("files.voice"), "voice:")],
     ]);
 
     return ctx.reply(message, keyboard.extra());

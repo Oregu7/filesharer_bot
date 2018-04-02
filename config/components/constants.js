@@ -16,11 +16,14 @@ const RATE_OFF_ACTION = "rate_off";
 const REPLY_ACTION = "reply";
 const BACK_ACTION = "back";
 const LANG_ACTION = "lang";
-
+const SAVE_ACTION = "save";
+const NAME_ACTION = "name";
 const LIKE_ACTION = "like";
 const DISLIKE_ACTION = "dislike";
+
 const SEND_FILE_TO_USER_SCENE = "send_file_to_user";
 const LANG_SCENE = "lang_scene";
+const PASSWORD_SCENE = "password_scene";
 
 module.exports = {
     SETTINGS_ACTION,
@@ -43,6 +46,9 @@ module.exports = {
     LIKE_ACTION,
     DISLIKE_ACTION,
     LANG_ACTION,
+    SAVE_ACTION,
+    NAME_ACTION,
     LANG_SCENE,
+    PASSWORD_SCENE,
     SEND_FILE_TO_USER_SCENE,
 };

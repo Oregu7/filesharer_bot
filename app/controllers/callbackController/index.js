@@ -17,7 +17,9 @@ const {
     PASSWORD_ACTION,
     LANG_ACTION,
     LIKE_ACTION,
+    SAVE_ACTION,
     DISLIKE_ACTION,
+    PASSWORD_SCENE,
 } = require("config").get("constants");
 const { enter } = require("telegraf/stage");
 // actions
@@ -26,6 +28,7 @@ const deleteAction = require("./deleteAction");
 const rateActions = require("./rateController");
 const statisticsActions = require("./statisticsController");
 const langAction = require("./langAction");
+const saveAction = require("./saveAction");
 
 // router
 const callback = new Router(({ callbackQuery }) => {
@@ -43,7 +46,7 @@ callback.on(SETTINGS_ACTION, switchToMenuAction(SETTINGS_ACTION));
 callback.on(STATISTICS_ACTION, switchToMenuAction(STATISTICS_ACTION));
 callback.on(BACK_ACTION, switchToMenuAction("main"));
 
-callback.on(PASSWORD_ACTION, enter(PASSWORD_ACTION));
+callback.on(PASSWORD_ACTION, enter(PASSWORD_SCENE));
 callback.on(RATE_ACTION, rateActions.base);
 callback.on(RATE_INFO_ACTION, rateActions.info);
 callback.on(RATE_ON_ACTION, rateActions.on);
@@ -55,6 +58,8 @@ callback.on(STATISTICS_JSON_ACTION, statisticsActions.json);
 callback.on(STATISTICS_XLSX_ACTION, statisticsActions.xlsx);
 callback.on(STATISTICS_XML_ACTION, statisticsActions.xml);
 callback.on(STATISTICS_INFO_ACTION, statisticsActions.info);
+
+callback.on(SAVE_ACTION, saveAction);
 callback.on(LANG_ACTION, langAction);
 callback.on(DELETE_ACTION, deleteAction);
 

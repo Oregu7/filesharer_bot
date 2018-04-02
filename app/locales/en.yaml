@@ -64,3 +64,6 @@ sendFile:
   cancelButton: \u{2716}Cancel
 lang:
   saved: OK, your language saved.
+save:
+  button: \u{1F4BE}Save
+  message: \u{1F4BE}I copy the file ...

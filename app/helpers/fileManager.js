@@ -16,10 +16,12 @@ const {
     PASSWORD_ACTION,
     RATE_ACTION,
     LIKE_ACTION,
+    SAVE_ACTION,
     DISLIKE_ACTION,
     BACK_ACTION,
 } = require("config").get("constants");
 
+// работа с файлом
 function createFile(ctx, type) {
     const fileData = ctx.message[type];
     const [{
@@ -36,6 +38,18 @@ function createFile(ctx, type) {
     });
 }
 
+function copyFile(ctx, file) {
+    const { fileId, type, name } = file;
+    const author = ctx.session.authToken;
+
+    return FileModel.create({
+        fileId,
+        type,
+        author,
+        name,
+    });
+}
+
 function deleteFile(id) {
     return FileModel.remove({ _id: id });
 }
@@ -44,7 +58,7 @@ function getFileById(id) {
     return FileModel.findById(id);
 }
 
-function isExistFileMiddleware(callback, select = "password fileId type publicId options") {
+function isExistFileMiddleware(callback, select = "password fileId type publicId options name") {
     return async(ctx) => {
         const id = ctx.state.payload;
         const file = await getFileById(id).select(select);
@@ -57,6 +71,7 @@ function isExistFileMiddleware(callback, select = "password fileId type publicId
     };
 }
 
+// формирование клавиатур
 function createMainKeyboard(ctx, fileId) {
     return Markup.inlineKeyboard([
         Markup.callbackButton(ctx.i18n.t("file.settingsButton"), `${SETTINGS_ACTION}:${fileId}`),
@@ -107,6 +122,20 @@ function createKeyboard(ctx, fileId, type = "main") {
     }
 }
 
+function createUserKeyboard(ctx, file) {
+    const keyboard = [
+        [Markup.callbackButton(ctx.i18n.t("save.button"), `${SAVE_ACTION}:${file._id}`)],
+        [Markup.switchToChatButton(ctx.i18n.t("file.replyButton"), `file:${file._id}`)],
+    ];
+    const rateKeyboard = [
+        Markup.callbackButton(`\u{1F44D}${file.likesCount}`, `${LIKE_ACTION}:${file._id}`),
+        Markup.callbackButton(`\u{1F44E}${file.dislikesCount}`, `${DISLIKE_ACTION}:${file._id}`),
+    ];
+    if (file.options.rate) keyboard.unshift(rateKeyboard);
+    return Markup.inlineKeyboard(keyboard);
+}
+
+// Формирование сообщений
 function createMessage(ctx, file) {
     const { name, description, type, publicId } = file;
     return ctx.i18n.t("file_info", {
@@ -148,20 +177,9 @@ function sendFileToUser(ctx, file) {
     return sendFileBase(ctx, file, keyboard);
 }
 
-function createUserKeyboard(ctx, file) {
-    const keyboard = [
-        Markup.switchToChatButton(ctx.i18n.t("file.replyButton"), `file:${file._id}`),
-    ];
-    const rateKeyboard = [
-        Markup.callbackButton(`\u{1F44D}${file.likesCount}`, `${LIKE_ACTION}:${file._id}`),
-        Markup.callbackButton(`\u{1F44E}${file.dislikesCount}`, `${DISLIKE_ACTION}:${file._id}`),
-    ];
-    if (file.options.rate) keyboard.unshift(...rateKeyboard);
-    return Markup.inlineKeyboard(keyboard, { columns: 2 });
-}
-
 module.exports = {
     createFile,
+    copyFile,
     deleteFile,
     getFileById,
     isExistFileMiddleware,

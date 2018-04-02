@@ -2,11 +2,11 @@ const Scene = require("telegraf/scenes/base");
 const Markup = require("telegraf/markup");
 const md5 = require("md5");
 const { leave } = require("telegraf/stage");
-const { SETTINGS_ACTION, PASSWORD_ACTION } = require("config").get("constants");
+const { SETTINGS_ACTION, PASSWORD_SCENE } = require("config").get("constants");
 const { FileModel } = require("../models");
 const { sendFile, isExistFileMiddleware } = require("../helpers").fileManager;
 
-const passwordScene = new Scene(PASSWORD_ACTION);
+const passwordScene = new Scene(PASSWORD_SCENE);
 const removeKeyboard = Markup.removeKeyboard().extra();
 
 // base actions
