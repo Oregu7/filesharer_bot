@@ -7,7 +7,7 @@ module.exports = (type) => new Mutex(async(ctx, done) => {
         const file = await createFile(ctx, type);
         await sendFile(ctx, file);
     } catch (err) {
-        ctx.reply("Что-то пошло не так...");
+        ctx.reply(ctx.i18n.t("base.fileLoadError"));
     }
     return done();
 }).start();

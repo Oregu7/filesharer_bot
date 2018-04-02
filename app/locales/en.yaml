@@ -2,6 +2,7 @@ base:
   startCommand: <b>FileSharer Bot - </b> this is a bot that will allow you to share\nfiles with other users.
   addCommand: To add a new <b>file</b>, simply <b>send it</b> to me!\n\nI support the following <b>formats</b> of data:\n
   addFileCommand: Uploading file...
+  fileLoadError: Something went wrong...
   getFileCommand: \u{26A0}This file was not found!
   filesCommand: Select file type
   langCommand: Please choose your language.
@@ -22,6 +23,7 @@ file:
   deleteButton: \u{1F5D1}Yes, delete
   passwordButton: \u{1F510}Password
   rateButton: \u{2B50}Rating
+  nameButton: \u{1F4DD}Name
   backButton: \u{1F519}Go back
   menuButton: \u{1F3E0}To the main
   notExist: The file with this ID was not found! Perhaps it was deleted by the owner.
@@ -67,3 +69,10 @@ lang:
 save:
   button: \u{1F4BE}Save
   message: \u{1F4BE}I copy the file ...
+name: 
+  startMessage: Enter a new file name\n\n\u{2796} Limit:<b> ${maxSize}</b> characters\n\u{1F4DD} Name:<b> ${name}</b>
+  setMessage: Title successfully changed !
+  lengthExceeded: \u{26A0} You <b>exceeded</b> the number of characters allowed - <b>${size}</b> from <b>${maxSize}</b>
+  cancelMessage: Well, that means not this time ヽ(ー_ー )ノ
+  setCbMessage: \u{1F4DD}Edit name
+  backButton: \u{2699}to settings
