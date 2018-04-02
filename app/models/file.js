@@ -48,6 +48,7 @@ FileSchema.statics.getFileToUser = async function(query = {}) {
                 type: 1,
                 publicId: 1,
                 options: 1,
+                name: 1,
                 likesCount: { $size: "$likes" },
                 dislikesCount: { $size: "$dislikes" },
             },

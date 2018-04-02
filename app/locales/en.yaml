@@ -13,7 +13,7 @@ base:
   commandsList: <b>Basic</b>\n/add - add a new file\n/files - my files\n/lang - select language\n\n<b>Help</b>\n/help - answers to basic questions\n/feedback - contact us\n\n/rate - rate bot\n/cancel - cancel the current operation
   dataFormats: \u{1F5BC}<code>images</code>\n\u{1F4F9}<code>video</code>\n\u{1F3B5}<code>audio files</code>\n\u{1F4E6}<code>documents</code>\n\u{1F3A4}<code>voice messages</code>
 file: 
-  caption: link:https://t.me/filesharer_bot?start=${publicId}
+  caption: ${name}\n\nlink:https://t.me/filesharer_bot?start=${publicId}
   deletedCbMessage: It looks like the file has already been deleted :(
   settingsButton: \u{2699}Settings
   statisticsButton: \u{1F4CA}Statistics
