@@ -1,7 +1,13 @@
+const { Mutex } = require("../util");
 const { createFile, sendFile } = require("../helpers").fileManager;
 
-module.exports = (type) => async(ctx) => {
-    await ctx.reply(ctx.i18n.t("base.addFileCommand"));
-    const file = await createFile(ctx, type);
-    return sendFile(ctx, file);
-};
+module.exports = (type) => new Mutex(async(ctx, done) => {
+    try {
+        await ctx.reply(ctx.i18n.t("base.addFileCommand"));
+        const file = await createFile(ctx, type);
+        await sendFile(ctx, file);
+    } catch (err) {
+        ctx.reply("Что-то пошло не так...");
+    }
+    return done();
+}).start();
