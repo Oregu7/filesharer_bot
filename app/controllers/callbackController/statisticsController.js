@@ -12,6 +12,7 @@ const {
 } = require("config").get("constants");
 
 const { VisitorModel, FileModel } = require("../../models");
+const { deleteMessage } = require("../../helpers").fileManager;
 
 function getVisitorsMiddleware(callback) {
     return async(ctx) => {
@@ -85,13 +86,14 @@ exports.xml = getVisitorsMiddleware((ctx, users) => {
 
 exports.info = async(ctx) => {
     const { i18n } = ctx;
-    ctx.answerCbQuery(i18n.t("statistics.infoCbMessage"), true);
     const id = ctx.state.payload;
+    ctx.answerCbQuery(i18n.t("statistics.infoCbMessage"));
+
     const [file, visitors] = await Promise.all([
         FileModel.getFileToUser({ _id: mongoose.Types.ObjectId(id) }),
         VisitorModel.getVisitorsCount(id)
     ]);
-
+    if (!file) return deleteMessage(ctx);
     const keyboard = Markup.inlineKeyboard([
         [Markup.callbackButton(`${i18n.t("statistics.rateButton")}:`, `${file._id}`)],
         [

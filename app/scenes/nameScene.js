@@ -1,9 +1,11 @@
 const Scene = require("telegraf/scenes/base");
+const escape = require("escape-html");
 const Markup = require("telegraf/markup");
 const { leave } = require("telegraf/stage");
 const { SETTINGS_ACTION, NAME_SCENE } = require("config").get("constants");
 const { FileModel } = require("../models");
 const { sendFile, isExistFileMiddleware } = require("../helpers").fileManager;
+const { isEmail, isURL } = require("validator");
 
 const nameScene = new Scene(NAME_SCENE);
 const removeKeyboard = Markup.removeKeyboard().extra();
@@ -30,14 +32,18 @@ nameScene.hears(/(к настройкам|назад|отмена|back|to settin
 // events
 nameScene.on("text", async(ctx) => {
     const { i18n } = ctx;
-    const name = ctx.message.text;
+    const name = escape(ctx.message.text.trim());
     const file = getFileFromState(ctx);
     const keyboard = getBaseKeyboard(ctx);
 
-    if (name.length > maxSize)
+    if (isURL(name) || isEmail(name))
+        return ctx.replyWithHTML(i18n.t("name.wrongMessage"), keyboard.extra());
+    else if (name.length > maxSize)
         return ctx.replyWithHTML(i18n.t("name.lengthExceeded", { size: name.length, maxSize }), keyboard.extra());
 
+    // update
     await FileModel.update({ _id: file._id }, { $set: { name } });
+    file.name = name;
     // выходим из сцены
     ctx.scene.reset();
     await ctx.reply(i18n.t("name.setMessage"), removeKeyboard);

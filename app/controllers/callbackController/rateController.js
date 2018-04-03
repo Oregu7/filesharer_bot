@@ -7,7 +7,7 @@ const {
     RATE_ON_ACTION,
     RATE_OFF_ACTION,
 } = require("config").get("constants");
-const { isExistFileMiddleware, createUserKeyboard } = require("../../helpers/fileManager");
+const { isExistFileMiddleware, createUserKeyboard, deleteMessage } = require("../../helpers/fileManager");
 const { FileModel } = require("../../models");
 
 // вид переключателя (need => (on = true, off = false))
@@ -50,8 +50,11 @@ function rateFile(assessment = "likes") {
     return async(ctx) => {
         const id = ctx.state.payload;
         ctx.answerCbQuery(ctx.i18n.t("rate.assessmentCbMessage", { assessment }));
+
         await FileModel.rateFile(ctx, assessment);
         const file = await FileModel.getFileToUser({ _id: mongoose.Types.ObjectId(id) });
+        if (!file) return deleteMessage(ctx);
+
         const keyboard = createUserKeyboard(ctx, file);
         return ctx.editMessageReplyMarkup(keyboard);
     };

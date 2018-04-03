@@ -76,3 +76,4 @@ name:
   cancelMessage: Well, that means not this time ヽ(ー_ー )ノ
   setCbMessage: \u{1F4DD}Edit name
   backButton: \u{2699}to settings
+  wrongMessage: You entered an <b>invalid</b> value!

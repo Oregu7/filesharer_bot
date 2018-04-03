@@ -52,21 +52,26 @@ function copyFile(ctx, file) {
 }
 
 function deleteFile(id) {
-    return FileModel.remove({ _id: id });
+    return Promise.all([
+        VisitorModel.remove({ fileId: id }),
+        FileModel.remove({ _id: id }),
+    ]);
 }
 
 function getFileById(id) {
     return FileModel.findById(id);
 }
 
+function deleteMessage(ctx) {
+    ctx.answerCbQuery(ctx.i18n.t("file.deletedCbMessage"), true);
+    return ctx.deleteMessage();
+}
+
 function isExistFileMiddleware(callback, select = "password fileId type publicId options name") {
     return async(ctx) => {
         const id = ctx.state.payload;
         const file = await getFileById(id).select(select);
-        if (!file) {
-            ctx.answerCbQuery(ctx.i18n.t("file.deletedCbMessage"), true);
-            return ctx.deleteMessage();
-        }
+        if (!file) return deleteMessage(ctx);
 
         return callback(ctx, file);
     };
@@ -176,6 +181,7 @@ module.exports = {
     copyFile,
     deleteFile,
     getFileById,
+    deleteMessage,
     isExistFileMiddleware,
     createKeyboard,
     createMainKeyboard,
