@@ -32,7 +32,7 @@ passwordScene.hears(/(удалить|delete|remove)/i, async(ctx) => {
     await FileModel.update({ _id: file._id }, { $set: { password: "" } });
     // выходим из сцены
     ctx.scene.reset();
-    ctx.reply(ctx.i18n.t("password.deleteMessage"), removeKeyboard);
+    await ctx.reply(ctx.i18n.t("password.deleteMessage"), removeKeyboard);
     return sendFile(ctx, file, SETTINGS_ACTION);
 });
 // events

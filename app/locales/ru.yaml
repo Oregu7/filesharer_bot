@@ -8,7 +8,7 @@ base:
   langCommand: Выберите ваш язык.
   rateCommand: Привет! Если Вам понравился наш бот, пожалуйста оцените его в StoreBot.\n\u{1F44D} <b>Оценить:</b> <a href = "telegram.me/storebot?start=${bot_name}">storebot_rate</a>
   feedbackCommand: Напишите нам в ${bot_name}, если у вас есть проблемы с использованием бота.
-  helpCommand: Мы рекомендуем Вам изучить ответы на вопросы в <a href="${help_url}">справке</a>. Это позволит Вам избежать недоразумений при использовании бота. Если же Вы изучили справку и не нашли ответа на возникший у Вас вопрос, то Вы всегда можете обратиться к нам в техподдержку используя ${bot_name}
+  helpCommand: Вы всегда можете обратиться к нам в техподдержку ${bot_name}.
   deleteAction: Файл удален!
   commandsList: <b>Основные</b>\n/add - добавить файл\n/files - мои файлы\n/lang - выбрать язык\n\n<b>Помощь</b>\n/help - справка\n/feedback - связаться с нами\n\n/rate - оценить бот\n/cancel - завершить текущую операцию
   dataFormats: \u{1F5BC}<code>изображения</code>\n\u{1F4F9}<code>видеозаписи</code>\n\u{1F3B5}<code>аудио-файлы</code>\n\u{1F4C1}<code>документы</code>\n\u{1F3A4}<code>голосовые сообщения</code>
@@ -36,7 +36,7 @@ password:
   cancelMessage: Ну что ж, значит не в этот раз ヽ(ー_ー )ノ
   setCbMessage: \u{1F510}Установить пароль
   backButton: \u{2699}к настройкам
-  removeButton: \u{2702}удалить
+  removeButton: \u{274C}Удалить пароль
 rate:
   infoCbMessage: Система оценки для ваших файлов
   infoButton: \u{1F44D}Лайки / Дизлайки\u{1F44E}

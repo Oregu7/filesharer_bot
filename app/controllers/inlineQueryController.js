@@ -24,7 +24,7 @@ function getQueryData(ctx, query) {
     const author = ctx.session.authToken;
     const indx = query.indexOf(":");
     let type = "article";
-    let text = query;
+    let text = query.trim();
     if (indx !== -1) {
         let typeData = query.slice(0, indx).toLowerCase().trim();
         type = allowedTypes.indexOf(typeData) !== -1 ? typeData : type;

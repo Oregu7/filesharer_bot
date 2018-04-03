@@ -80,11 +80,13 @@ function isExistFileMiddleware(callback, select = "password fileId type publicId
 // формирование клавиатур
 function createMainKeyboard(ctx, fileId) {
     return Markup.inlineKeyboard([
-        Markup.callbackButton(ctx.i18n.t("file.settingsButton"), `${SETTINGS_ACTION}:${fileId}`),
-        Markup.callbackButton(ctx.i18n.t("file.statisticsButton"), `${STATISTICS_ACTION}:${fileId}`),
-        Markup.switchToChatButton(ctx.i18n.t("file.replyButton"), `file:${fileId}`),
-        Markup.callbackButton(ctx.i18n.t("file.removeButton"), `${REMOVE_ACTION}:${fileId}`),
-    ], { columns: 2 });
+        [Markup.callbackButton(ctx.i18n.t("file.settingsButton"), `${SETTINGS_ACTION}:${fileId}`)],
+        [Markup.callbackButton(ctx.i18n.t("file.statisticsButton"), `${STATISTICS_ACTION}:${fileId}`)],
+        [
+            Markup.switchToChatButton(ctx.i18n.t("file.replyButton"), `file:${fileId}`),
+            Markup.callbackButton(ctx.i18n.t("file.removeButton"), `${REMOVE_ACTION}:${fileId}`),
+        ],
+    ]);
 }
 
 function createRemoveKeyboard(ctx, fileId) {
@@ -96,11 +98,11 @@ function createRemoveKeyboard(ctx, fileId) {
 
 function createSettingsKeyboard(ctx, fileId) {
     return Markup.inlineKeyboard([
+        [Markup.callbackButton(ctx.i18n.t("file.nameButton"), `${NAME_ACTION}:${fileId}`)],
         [
             Markup.callbackButton(ctx.i18n.t("file.passwordButton"), `${PASSWORD_ACTION}:${fileId}`),
             Markup.callbackButton(ctx.i18n.t("file.rateButton"), `${RATE_ACTION}:${fileId}`)
         ],
-        [Markup.callbackButton(ctx.i18n.t("file.nameButton"), `${NAME_ACTION}:${fileId}`)],
         [Markup.callbackButton(ctx.i18n.t("file.backButton"), `${BACK_ACTION}:${fileId}`)],
     ]);
 }
