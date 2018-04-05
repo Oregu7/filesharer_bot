@@ -13,7 +13,9 @@ base:
   commandsList: <b>Основные</b>\n/add - добавить файл\n/files - мои файлы\n/lang - выбрать язык\n\n<b>Помощь</b>\n/help - справка\n/feedback - связаться с нами\n\n/rate - оценить бот\n/cancel - завершить текущую операцию
   dataFormats: \u{1F5BC}<code>изображения</code>\n\u{1F4F9}<code>видеозаписи</code>\n\u{1F3B5}<code>аудио-файлы</code>\n\u{1F4C1}<code>документы</code>\n\u{1F3A4}<code>голосовые сообщения</code>
 file: 
-  caption: ${name}\n\nссылка:https://t.me/filesharer_bot?start=${publicId}
+  caption:
+    author: <a href="tg://user?id=${userId}">${firstName} ${lastName}</a>  
+    link: ссылка:<a href="https://t.me/filesharer_bot?start=${publicId}"> скопируй меня</a>
   deletedCbMessage: Похоже файл уже удален :(
   settingsButton: \u{2699}Настройки
   statisticsButton: \u{1F4CA}Статистика
@@ -23,6 +25,7 @@ file:
   deleteButton: \u{1F5D1}Да, удалить
   passwordButton: \u{1F510}Пароль
   rateButton: \u{2B50}Рейтинг
+  optionalButton: \u{1F50B}Опционально
   nameButton: \u{1F4DD}Название
   backButton: \u{1F519}Назад
   menuButton: \u{1F3E0}К главной
@@ -38,10 +41,6 @@ password:
   backButton: \u{2699}к настройкам
   removeButton: \u{274C}Удалить пароль
 rate:
-  infoCbMessage: Система оценки для ваших файлов
-  infoButton: \u{1F44D}Лайки / Дизлайки\u{1F44E}
-  onButton: Вкл.
-  offButton: Откл.
   assessmentCbMessage: ${assessment == "likes" ? "\u{1F44D}Лайк" :"Дизлайк\u{1F44E}"}
 files:
   all: \u{1F300}все
@@ -77,3 +76,17 @@ name:
   setCbMessage: \u{1F4DD}Изменить название
   backButton: \u{2699}к настройкам
   wrongMessage: Вы ввели <b>недопустимое</b> значение !
+options:
+  onButton: Вкл.
+  offButton: Откл.
+  limitExceeded: Вы превысили лимит описания в 200 символов !
+  infoCbMessage:
+    rate: Система оценки для ваших файлов
+    link: Отображение ссылки на файл
+    name: Отображение названия файла
+    author: Отображение имени автора
+  infoButton:
+    rate: \u{1F44D}Лайки / Дизлайки\u{1F44E}
+    link: \u{1F517}Ссылка
+    name: \u{1F4D9}Название
+    author: \u{1F464}Автор

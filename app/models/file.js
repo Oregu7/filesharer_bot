@@ -17,11 +17,9 @@ const FileSchema = mongoose.Schema({
     publicAccess: { type: Boolean, default: false },
     // опции, как будет отображаться файл у людей
     options: {
-        author: {
-            username: { type: Boolean, default: false },
-            lastName: { type: Boolean, default: false },
-            firstName: { type: Boolean, default: false },
-        },
+        author: { type: Boolean, default: false },
+        name: { type: Boolean, default: false },
+        link: { type: Boolean, default: true },
         date: { type: Boolean, default: false },
         // колличество просмотров
         count: { type: Boolean, default: false },
@@ -41,7 +39,17 @@ FileSchema.statics.getFileToUser = async function(query = {}) {
     const [file = null] = await this.aggregate([
         { "$match": query },
         {
+            $lookup: {
+                from: "users",
+                localField: "author",
+                foreignField: "_id",
+                as: "author",
+            },
+        },
+        { "$unwind": "$author" },
+        {
             $project: {
+                author: "$author",
                 item: 1,
                 password: 1,
                 fileId: 1,

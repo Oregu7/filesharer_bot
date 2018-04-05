@@ -18,7 +18,8 @@ passwordScene.enter(isExistFileMiddleware((ctx, file) => {
     const message = ctx.i18n.t("password.startMessage", { password: file.password });
     const keyboard = getBaseKeyboard(ctx);
     return ctx.reply(message, keyboard.extra());
-}));
+}, true));
+
 passwordScene.leave(async(ctx) => {
     const file = getFileFromState(ctx);
     await ctx.reply(ctx.i18n.t("password.cancelMessage"), removeKeyboard);

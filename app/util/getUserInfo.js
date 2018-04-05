@@ -1,3 +1,5 @@
+const escape = require("escape-html");
+
 module.exports = (ctx) => {
     const {
         id: userId,
@@ -11,8 +13,8 @@ module.exports = (ctx) => {
     return {
         userId,
         isBot,
-        firstName,
-        lastName,
+        firstName: escape(firstName),
+        lastName: escape(lastName),
         username,
         languageCode,
     };

@@ -20,7 +20,8 @@ nameScene.enter(isExistFileMiddleware((ctx, file) => {
     const message = ctx.i18n.t("name.startMessage", { name: file.name, maxSize });
     const keyboard = getBaseKeyboard(ctx);
     return ctx.replyWithHTML(message, keyboard.extra());
-}));
+}, true));
+
 nameScene.leave(async(ctx) => {
     const file = getFileFromState(ctx);
     await ctx.reply(ctx.i18n.t("name.cancelMessage"), removeKeyboard);

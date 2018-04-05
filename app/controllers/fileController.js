@@ -5,10 +5,10 @@ module.exports = async(ctx) => {
     const [, publicId] = ctx.match;
     const { id: userId } = ctx.message.from;
     const file = await FileModel.findOne({ publicId })
-        .select("type fileId publicId name created_at author")
+        .select("type fileId publicId name created_at author options")
         .populate({
             path: "author",
-            select: "userId",
+            select: "userId firstName lastName",
         });
 
     if (file && file.author.userId === userId) return sendFile(ctx, file);

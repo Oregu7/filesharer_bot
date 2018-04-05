@@ -10,10 +10,10 @@ const {
     REMOVE_ACTION,
     DELETE_ACTION,
     BACK_ACTION,
-    RATE_ACTION,
-    RATE_INFO_ACTION,
-    RATE_ON_ACTION,
-    RATE_OFF_ACTION,
+    OPTIONS_ACTION,
+    OPTION_INFO_ACTION,
+    OPTION_ON_ACTION,
+    OPTION_OFF_ACTION,
     PASSWORD_ACTION,
     LANG_ACTION,
     LIKE_ACTION,
@@ -31,6 +31,7 @@ const rateActions = require("./rateController");
 const statisticsActions = require("./statisticsController");
 const langAction = require("./langAction");
 const saveAction = require("./saveAction");
+const optionalAction = require("./optionalAction");
 
 // router
 const callback = new Router(({ callbackQuery }) => {
@@ -50,10 +51,6 @@ callback.on(BACK_ACTION, switchToMenuAction("main"));
 
 callback.on(PASSWORD_ACTION, enter(PASSWORD_SCENE));
 callback.on(NAME_ACTION, enter(NAME_SCENE));
-callback.on(RATE_ACTION, rateActions.base);
-callback.on(RATE_INFO_ACTION, rateActions.info);
-callback.on(RATE_ON_ACTION, rateActions.on);
-callback.on(RATE_OFF_ACTION, rateActions.off);
 callback.on(LIKE_ACTION, rateActions.like);
 callback.on(DISLIKE_ACTION, rateActions.dislike);
 callback.on(STATISTICS_CSV_ACTION, statisticsActions.csv);
@@ -61,6 +58,11 @@ callback.on(STATISTICS_JSON_ACTION, statisticsActions.json);
 callback.on(STATISTICS_XLSX_ACTION, statisticsActions.xlsx);
 callback.on(STATISTICS_XML_ACTION, statisticsActions.xml);
 callback.on(STATISTICS_INFO_ACTION, statisticsActions.info);
+
+callback.on(OPTIONS_ACTION, optionalAction.base);
+callback.on(OPTION_INFO_ACTION, optionalAction.info);
+callback.on(OPTION_ON_ACTION, optionalAction.on);
+callback.on(OPTION_OFF_ACTION, optionalAction.off);
 
 callback.on(SAVE_ACTION, saveAction);
 callback.on(LANG_ACTION, langAction);

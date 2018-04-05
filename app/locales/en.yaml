@@ -12,8 +12,10 @@ base:
   deleteAction: File deleted!
   commandsList: <b>Basic</b>\n/add - add a new file\n/files - my files\n/lang - select language\n\n<b>Help</b>\n/help - answers to basic questions\n/feedback - contact us\n\n/rate - rate bot\n/cancel - cancel the current operation
   dataFormats: \u{1F5BC}<code>images</code>\n\u{1F4F9}<code>video</code>\n\u{1F3B5}<code>audio files</code>\n\u{1F4C1}<code>documents</code>\n\u{1F3A4}<code>voice messages</code>
-file: 
-  caption: ${name}\n\nlink:https://t.me/filesharer_bot?start=${publicId}
+file:
+  caption:
+    author: <a href="tg://user?id=${userId}">${firstName} ${lastName}</a>  
+    link: link:<a href="https://t.me/filesharer_bot?start=${publicId}"> copy me</a> 
   deletedCbMessage: It looks like the file has already been deleted :(
   settingsButton: \u{2699}Settings
   statisticsButton: \u{1F4CA}Statistics
@@ -23,6 +25,7 @@ file:
   deleteButton: \u{1F5D1}Yes, delete
   passwordButton: \u{1F510}Password
   rateButton: \u{2B50}Rating
+  optionalButton: \u{1F50B}Optional
   nameButton: \u{1F4DD}Name
   backButton: \u{1F519}Go back
   menuButton: \u{1F3E0}To the main
@@ -38,10 +41,6 @@ password:
   backButton: \u{2699}To settings
   removeButton: \u{274C}Remove password
 rate:
-  infoCbMessage: Evaluation system for your files
-  infoButton: \u{1F44D}Likes / Dislikes\u{1F44E}
-  onButton: On.
-  offButton: Off.
   assessmentCbMessage: ${assessment == "likes" ? "\u{1F44D}Like" :"Dislike\u{1F44E}"}
 files:
   all: \u{1F300}all
@@ -77,3 +76,17 @@ name:
   setCbMessage: \u{1F4DD}Edit name
   backButton: \u{2699}to settings
   wrongMessage: You entered an <b>invalid</b> value!
+options:
+  onButton: On.
+  offButton: Off.
+  limitExceeded: You have exceeded the description limit of 200 characters !
+  infoCbMessage:
+    rate: Rate system for your files
+    link: Displaying a link to a file
+    name: Displaying the file name
+    author: Displaying the author's name
+  infoButton:
+    rate: \u{1F44D}Likes / Dislikes\u{1F44E}
+    link: \u{1F517}Link
+    name: \u{1F4D9}File name
+    author: \u{1F464}Author

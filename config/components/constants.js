@@ -1,5 +1,4 @@
 const SETTINGS_ACTION = "settings";
-const OPTIONS_ACTION = "options";
 const STATISTICS_ACTION = "statistics";
 const STATISTICS_CSV_ACTION = "statistics_csv";
 const STATISTICS_JSON_ACTION = "statistics_json";
@@ -9,10 +8,10 @@ const STATISTICS_INFO_ACTION = "statistics_info";
 const REMOVE_ACTION = "remove";
 const DELETE_ACTION = "delete";
 const PASSWORD_ACTION = "password";
-const RATE_ACTION = "rate";
-const RATE_INFO_ACTION = "rate_info";
-const RATE_ON_ACTION = "rate_on";
-const RATE_OFF_ACTION = "rate_off";
+const OPTIONS_ACTION = "options";
+const OPTION_INFO_ACTION = "option_info";
+const OPTION_ON_ACTION = "option_on";
+const OPTION_OFF_ACTION = "option_off";
 const REPLY_ACTION = "reply";
 const BACK_ACTION = "back";
 const LANG_ACTION = "lang";
@@ -38,10 +37,9 @@ module.exports = {
     REMOVE_ACTION,
     DELETE_ACTION,
     PASSWORD_ACTION,
-    RATE_ACTION,
-    RATE_INFO_ACTION,
-    RATE_ON_ACTION,
-    RATE_OFF_ACTION,
+    OPTION_INFO_ACTION,
+    OPTION_ON_ACTION,
+    OPTION_OFF_ACTION,
     REPLY_ACTION,
     BACK_ACTION,
     LIKE_ACTION,
