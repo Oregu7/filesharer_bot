@@ -14,11 +14,10 @@ class Mutex extends EventEmitter {
     }
 
     done(ctx) {
-        const { queue } = this[_getQueue](ctx);
-        setTimeout(() => {
-            queue.done = true;
-            this.emit("dequeue", ctx);
-        }, 300);
+        const { queue, id } = this[_getQueue](ctx);
+        queue.done = true;
+        console.log(`[${id}] => done`);
+        this.emit("dequeue", ctx);
     }
 
     enqueue(ctx, ...args) {
