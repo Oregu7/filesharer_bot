@@ -27,7 +27,7 @@ class Mutex extends EventEmitter {
         if (queue.done) this.emit("dequeue", ctx);
     }
 
-    async [_dequeue](ctx) {
+    [_dequeue](ctx) {
         const { queue } = this[_getQueue](ctx);
         if (queue.stack.length && queue.done) {
             queue.done = false;
