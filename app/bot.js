@@ -33,10 +33,7 @@ bot.command("down", controllers.downloadConreoller);
 // patterns
 bot.hears(/^\/file@([A-z0-9_-]+)$/, controllers.fileController);
 // events
-bot.on("photo", (ctx) => {
-    console.log(ctx.message.photo);
-    controllers.addFileController("photo")(ctx);
-});
+bot.on("photo", controllers.addFileController("photo"));
 bot.on("video", controllers.addFileController("video"));
 bot.on("audio", controllers.addFileController("audio"));
 bot.on("voice", controllers.addFileController("voice"));
@@ -45,13 +42,8 @@ bot.on("document", controllers.addFileController("document"));
 bot.on("callback_query", controllers.callbackController);
 bot.on("inline_query", controllers.inlineQueryController);
 
-bot.on("message", (ctx) => {
-    console.log(ctx.message);
-});
-
 bot.catch((err) => {
     console.error(err);
 });
-
 
 module.exports = bot;
