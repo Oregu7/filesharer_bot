@@ -3,6 +3,7 @@ const { createFile, sendFile } = require("../helpers").fileManager;
 
 module.exports = (type) => new Mutex(async(ctx, done) => {
     try {
+        console.log(ctx.message);
         let ok = await ctx.reply(ctx.i18n.t("base.addFileCommand"));
         const file = await createFile(ctx, type);
         let fileOk = await sendFile(ctx, file);
