@@ -1,5 +1,5 @@
 base:
-  startCommand: <b>FileSharer Bot - </b> это бот, который позволит вам делиться\nфайлами с другими пользователями.
+  startCommand: <b>FileSharer Bot - </b> это бот, который позволит вам делиться файлами с другими пользователями.
   addCommand: Чтобы добавить новый <b>файл</b>, просто <b>отправьте</b> его мне!\n\nЯ поддерживаю следующие <b>форматы</b> данных:\n
   addFileCommand: Загружаю файл...
   fileLoadError: Что-то пошло не так...
@@ -10,8 +10,9 @@ base:
   feedbackCommand: Напишите нам в ${bot_name}, если у вас есть проблемы с использованием бота.
   helpCommand: Вы всегда можете обратиться к нам в техподдержку ${bot_name}.
   deleteAction: Файл удален!
-  commandsList: <b>Основные</b>\n/add - добавить файл\n/files - мои файлы\n/lang - выбрать язык\n\n<b>Помощь</b>\n/help - справка\n/feedback - связаться с нами\n\n/rate - оценить бот\n/cancel - завершить текущую операцию
+  commandsList: Используйте эти команды, чтобы управлять ботом:\n\n<b>Основные</b>\n/add - добавить файл\n/files - мои файлы\n/lang - выбрать язык\n\n<b>Помощь</b>\n/help - справка\n/feedback - связаться с нами\n\n/rate - оценить бот\n/cancel - завершить текущую операцию
   dataFormats: \u{1F5BC}<code>изображения</code>\n\u{1F4F9}<code>видеозаписи</code>\n\u{1F3B5}<code>аудио-файлы</code>\n\u{1F4C1}<code>документы</code>\n\u{1F3A4}<code>голосовые сообщения</code>
+  termsOfUse: Пожалуйста ознакомьтесь с пользовательским <a href="http://telegra.ph/Polzovatelskoe-soglashenie-04-06">соглашением</a>
 file: 
   caption:
     author: <a href="tg://user?id=${userId}">${fullName.length < 24 ? fullName:"Автор публикации"}</a>  
@@ -64,7 +65,7 @@ sendFile:
   accessOpening: Доступ к файлу открыт.
   cancelButton: \u{2716}Отмена
 lang:
-  saved: Язык сохранен.
+  saved: \u{1F44C}Язык сохранен.
 save:
   button: \u{1F4BE}Сохранить
   message: \u{1F4BE}Копирую файл...

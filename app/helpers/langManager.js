@@ -1,5 +1,7 @@
+const Extra = require("telegraf/extra");
 const Markup = require("telegraf/markup");
 const { LANG_ACTION } = require("config").get("constants");
+const { start } = require("./commands");
 
 exports.sendLanguagesList = (ctx) => {
     const message = ctx.i18n.t("base.langCommand");
@@ -12,7 +14,8 @@ exports.sendLanguagesList = (ctx) => {
 };
 
 exports.setLanguage = (ctx, langCode) => {
-    ctx.i18n.locale(langCode);
-    ctx.deleteMessage();
-    return ctx.reply(ctx.i18n.t("lang.saved"));
+    const { i18n } = ctx;
+    i18n.locale(langCode);
+    ctx.answerCbQuery(i18n.t("lang.saved"));
+    return ctx.editMessageText(start(ctx), Extra.HTML());
 };

@@ -10,8 +10,9 @@ base:
   feedbackCommand: Write to us in ${bot_name} if you have problems using the bot.
   helpCommand: You can contact us in technical support ${bot_name}.
   deleteAction: File deleted!
-  commandsList: <b>Basic</b>\n/add - add a new file\n/files - my files\n/lang - select language\n\n<b>Help</b>\n/help - answers to basic questions\n/feedback - contact us\n\n/rate - rate bot\n/cancel - cancel the current operation
+  commandsList: You can control bot by sending these commands:\n\n<b>Basic</b>\n/add - add a new file\n/files - my files\n/lang - select language\n\n<b>Help</b>\n/help - answers to basic questions\n/feedback - contact us\n\n/rate - rate bot\n/cancel - cancel the current operation
   dataFormats: \u{1F5BC}<code>images</code>\n\u{1F4F9}<code>video</code>\n\u{1F3B5}<code>audio files</code>\n\u{1F4C1}<code>documents</code>\n\u{1F3A4}<code>voice messages</code>
+  termsOfUse: Please read these <a href="http://telegra.ph/Terms-of-Service-04-06">terms and conditions</a> of use carefully.
 file:
   caption:
     author: <a href="tg://user?id=${userId}">${fullName.length < 24 ? fullName:"Author of publication"}</a>  
@@ -64,7 +65,7 @@ sendFile:
   accessOpening: Access to the file is open.
   cancelButton: \u{2716}Cancel
 lang:
-  saved: OK, your language saved.
+  saved: \u{1F44C}OK, your language saved.
 save:
   button: \u{1F4BE}Save
   message: \u{1F4BE}I copy the file ...
