@@ -35,7 +35,7 @@ function createFile(ctx, type) {
         fileId,
         type,
         author,
-        name: fileName.slice(0, 70),
+        name: fileName.slice(0, 50),
     });
 }
 
@@ -182,9 +182,10 @@ function createCaption(ctx, file) {
     const { i18n } = ctx;
     const { userId, firstName, lastName } = file.author;
     const { link, name, author } = file.options;
+    const fullName = firstName + " " + lastName;
     const fileName = `<b>${file.name}</b>`;
     const fileLink = i18n.t("file.caption.link", { publicId: file.publicId });
-    const fileAuthor = i18n.t("file.caption.author", { userId, firstName, lastName });
+    const fileAuthor = i18n.t("file.caption.author", { userId, fullName });
     let caption = `${name ? fileName : ""}${author && name ? "\n": ""}${author ? fileAuthor : ""}${(author || name) && link ? "\n\n" : ""}${link ? fileLink : ""}`;
 
     return caption.slice(0, 200);

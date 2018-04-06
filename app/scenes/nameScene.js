@@ -9,7 +9,7 @@ const { isEmail, isURL } = require("validator");
 
 const nameScene = new Scene(NAME_SCENE);
 const removeKeyboard = Markup.removeKeyboard().extra();
-const maxSize = 70;
+const maxSize = 50;
 
 // base actions
 nameScene.enter(isExistFileMiddleware((ctx, file) => {

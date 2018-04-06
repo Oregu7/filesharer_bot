@@ -14,7 +14,7 @@ base:
   dataFormats: \u{1F5BC}<code>изображения</code>\n\u{1F4F9}<code>видеозаписи</code>\n\u{1F3B5}<code>аудио-файлы</code>\n\u{1F4C1}<code>документы</code>\n\u{1F3A4}<code>голосовые сообщения</code>
 file: 
   caption:
-    author: <a href="tg://user?id=${userId}">${firstName} ${lastName}</a>  
+    author: <a href="tg://user?id=${userId}">${fullName.length < 24 ? fullName:"Автор публикации"}</a>  
     link: ссылка:<a href="https://t.me/filesharer_bot?start=${publicId}"> скопируй меня</a>
   deletedCbMessage: Похоже файл уже удален :(
   settingsButton: \u{2699}Настройки

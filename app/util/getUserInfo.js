@@ -13,8 +13,8 @@ module.exports = (ctx) => {
     return {
         userId,
         isBot,
-        firstName: escape(firstName),
-        lastName: escape(lastName),
+        firstName: escape(firstName.trim()),
+        lastName: escape(lastName.trim()),
         username,
         languageCode,
     };
