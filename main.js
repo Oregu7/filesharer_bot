@@ -1,22 +1,27 @@
-const localtunnel = require("localtunnel");
-const Koa = require("koa");
-const koaBody = require("koa-body");
-const token = require("config").get("bot.token");
+const fs = require("fs");
+const ip = require("ip");
+const config = require("config");
+
+const env = config.get("env");
+const port = config.get("server.port");
+const token = config.get("bot.token");
 const bot = require("./app/bot");
+//start bot
+if (env === "development") {
+    bot.telegram.setWebhook();
+    bot.startPolling();
+} else {
+    // TLS options
+    const tlsOptions = {
+        key: fs.readFileSync("./webhook_pkey.pem"),
+        cert: fs.readFileSync("./webhook_cert.pem"),
+    };
 
-const tunnel = localtunnel(3000, function(err, tunnel) {
-    if (err) console.error(err);
+    // Set telegram webhook
+    bot.telegram.setWebhook(`https://${ip.address()}:${port}/bot-${token}`, {
+        source: fs.readFileSync("./webhook_cert.pem"),
+    });
 
-    bot.telegram.setWebhook(`${tunnel.url}/bot-${token}`);
-    const app = new Koa();
-    app.use(koaBody());
-    app.use((ctx, next) => ctx.method === "POST" || ctx.url === `/bot-${token}` ?
-        bot.handleUpdate(ctx.request.body, ctx.response) :
-        next()
-    );
-    app.listen(3000);
-});
-
-tunnel.on("close", function() {
-    console.log("tunnels are closed");
-});
+    // Start https webhook
+    bot.startWebhook(`/bot-${token}`, tlsOptions, port);
+}

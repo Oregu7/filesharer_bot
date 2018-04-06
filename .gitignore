@@ -1,3 +1,5 @@
 /node_modules/
 session_db.json
 .env
+webhook_pkey.pem
+webhook_cert.pem
