@@ -5,7 +5,7 @@ module.exports = (ctx) => {
         id: userId,
         is_bot: isBot,
         first_name: firstName,
-        last_name: lastName,
+        last_name: lastName = "",
         username,
         language_code: languageCode,
     } = ctx.from;
