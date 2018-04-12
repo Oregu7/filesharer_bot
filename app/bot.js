@@ -1,18 +1,18 @@
 const config = require("config");
-const path = require("path");
 const Telegraf = require("telegraf");
 const Stage = require("telegraf/stage");
 const I18n = require("telegraf-i18n");
 const controllers = require("./controllers");
 const scenes = require("./scenes");
+const { allowedUsersMiddleware } = require("./middlewares");
 
 // configure
 const localSession = require("./util/localSession");
 const token = config.get("bot.token");
 const bot = new Telegraf(token);
 const i18n = new I18n({
-    directory: path.resolve(__dirname, "locales"),
-    defaultLanguage: "en",
+    directory: config.get("bot.localesPath"),
+    defaultLanguage: "ru",
     useSession: true,
 });
 // Create scene manager
@@ -20,6 +20,10 @@ const stage = new Stage(scenes);
 // middlewares
 bot.use(localSession.middleware());
 bot.use(i18n.middleware());
+// alled users
+bot.hears(/^[A-z0-9]{33}$/, controllers.tokenController.authorizeByToken);
+bot.use(allowedUsersMiddleware());
+// stage scenes
 bot.use(stage.middleware());
 // commands
 bot.start(controllers.startController);
