@@ -7,7 +7,7 @@ const scenes = require("./scenes");
 const { allowedUsersMiddleware } = require("./middlewares");
 
 // configure
-const localSession = require("./util/localSession");
+const { localSession } = require("./utils");
 const token = config.get("bot.token");
 const bot = new Telegraf(token);
 const i18n = new I18n({
@@ -20,7 +20,7 @@ const stage = new Stage(scenes);
 // middlewares
 bot.use(localSession.middleware());
 bot.use(i18n.middleware());
-// alled users
+// allowed users
 bot.hears(/^[A-z0-9]{33}$/, controllers.tokenController.authorizeByToken);
 bot.use(allowedUsersMiddleware());
 // stage scenes
@@ -34,6 +34,7 @@ bot.command("rate", controllers.rateController);
 bot.command("feedback", controllers.feedbackController);
 bot.command("help", controllers.helpController);
 bot.command("down", controllers.downloadConreoller);
+bot.command("token", controllers.tokenController.generateToken);
 // patterns
 bot.hears(/^\/file@([A-z0-9_-]+)$/, controllers.fileController);
 // events

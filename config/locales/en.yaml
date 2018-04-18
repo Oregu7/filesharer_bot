@@ -91,3 +91,7 @@ options:
     link: \u{1F517}Link
     name: \u{1F4D9}File name
     author: \u{1F464}Author
+token:
+  generate: \u{2795}New <b>token</b> generated:<code> ${source}</code>
+  notExist: \u{26D4}I didn't find your token !
+  alreadyUsed: \u{26A0}This token has already been used !

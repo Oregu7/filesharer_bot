@@ -29,8 +29,8 @@ function createFile(ctx, type) {
         file_id: fileId,
         file_name: fileName = `${type.toUpperCase()} ${randomize("0", 5)}`,
     }] = _.isArray(fileData) ? fileData.slice(-1) : [fileData];
-    const author = ctx.session.authToken;
 
+    const author = ctx.session.authToken;
     return FileModel.create({
         fileId,
         type,

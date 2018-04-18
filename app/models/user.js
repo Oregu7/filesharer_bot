@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { getUserInfo } = require("../util");
+const { getUserInfo } = require("../utils");
 
 const UserSchema = mongoose.Schema({
     userId: { type: Number, required: true, unique: true },

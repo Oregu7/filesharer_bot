@@ -91,3 +91,7 @@ options:
     link: \u{1F517}Ссылка
     name: \u{1F4D9}Название
     author: \u{1F464}Автор
+token:
+  generate: \u{2795}Сгенерирован новый <b>токен</b>:<code> ${source}</code>
+  notExist: \u{26D4}Я не нашел Ваш токен !
+  alreadyUsed: \u{26A0}Данный токен уже использован !

@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { getUserInfo } = require("../util");
+const { getUserInfo } = require("../utils");
 const { ObjectId } = mongoose.Schema.Types;
 
 const VisitorSchema = mongoose.Schema({

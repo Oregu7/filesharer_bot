@@ -1,5 +1,5 @@
 {
-    "admins": [322349523, 468245981],
+    "admins": [322349523],
     "allowedTypes": ["audio", "photo", "document", "video", "voice", "file"],
     "typesImages": {
         "video": "https://cdn2.iconfinder.com/data/icons/circle-icons-1/64/video-256.png",

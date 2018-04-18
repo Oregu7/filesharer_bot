@@ -5,17 +5,18 @@ const { FileModel } = require("../models");
 
 const createInlineQueryResult = (baseType, locale = "ru", link = false) => (file) => {
     const { type, fileId, publicId, name, created_at } = file;
+    baseType = baseType !== "audio" ? baseType : "document";
     const result = {
         id: uid(11),
         type: baseType,
-        title: name,
+        title: name + "1",
         message_text: link ? `https://t.me/filesharer_bot?start=${publicId}` : `/file@${publicId}`,
     };
 
     if (baseType === "article") {
         result["thumb_url"] = typesImages[type];
         result["description"] = moment(created_at).locale(locale).format("L LT");
-    } else result[`${type}_file_id`] = fileId;
+    } else result[`${baseType}_file_id`] = fileId;
 
     return result;
 };
