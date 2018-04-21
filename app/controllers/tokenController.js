@@ -1,7 +1,7 @@
 const Extra = require("telegraf/extra");
 const { uid } = require("rand-token");
+const { LANG_SCENE } = require("config").get("constants");
 
-const startController = require("./startController");
 const { TokenModel } = require("../models");
 const { getUserId } = require("../utils");
 const { isAdminMiddleware } = require("../middlewares");
@@ -26,7 +26,7 @@ async function authorizeByToken(ctx) {
         token.userId = userId;
         token.updated_at = Date.now();
         await token.save();
-        return startController(ctx);
+        return ctx.scene.enter(LANG_SCENE, { route: "/" });
     } else if (token && token.used) {
         message = i18n.t("token.alreadyUsed");
     }

@@ -4,8 +4,11 @@
     "description": "",
     "main": "main.js",
     "scripts": {
-        "start": "pm2 start ./main.js --name filesharer_bot",
+        "start": "node main.js",
         "dev": "nodemon ./main.js --ignore session_db.json"
+    },
+    "engines": {
+        "node": "8.11.1"
     },
     "author": "baamz",
     "license": "ISC",
